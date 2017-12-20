@@ -46,6 +46,10 @@ function mouseReleased() {
   stealBeams.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
 }
 
+function keyPressed() {
+  console.log(key + ' pressed');
+}
+
 function draw() {
   background('#bce6ff'); // sky
   Engine.update(engine);
