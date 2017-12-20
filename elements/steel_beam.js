@@ -1,10 +1,10 @@
 function SteelBeam(x, y, w, h) {
   var options = {
-    friction: 0,
-    restitution: 0.95,
+    friction: 0.95,
+    restitution: 0.2, // bouncyness
     isStatic: false
   }
-  this.body = Bodies.rectangle(x, y, w, h, options);
+  this.body = Bodies.rectangle(x, y, w + 2, h + 2, options);
   this.w = w;
   this.h = h;
   World.add(world, this.body);
@@ -18,7 +18,7 @@ function SteelBeam(x, y, w, h) {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    strokeWeight(3);
+    strokeWeight(4);
     stroke('#202021');
     fill('#4e4e51');
     rect(0, 0, this.w, this.h);
