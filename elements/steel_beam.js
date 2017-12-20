@@ -1,7 +1,8 @@
-function SteelBeam(x, y, w, h) {
+function SteelBeam(x, y, w, h, a) {
   var options = {
     friction: 0.95,
     restitution: 0.2, // bouncyness
+    angle: a,
     isStatic: false
   }
   this.body = Bodies.rectangle(x, y, w + 2, h + 2, options);

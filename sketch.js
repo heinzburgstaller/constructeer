@@ -24,7 +24,26 @@ function mouseDragged() {
 }
 
 function mouseClicked() {
-  stealBeams.push(new SteelBeam(mouseX, mouseY, 20, 200));
+
+}
+
+var mousePressedX;
+var mousePressedY;
+
+function mousePressed() {
+  mousePressedX = mouseX;
+  mousePressedY = mouseY;
+}
+
+function mouseReleased() {
+  var a = mouseX - mousePressedX;
+  var b = mouseY - mousePressedY;
+  var c = Math.sqrt(a * a + b * b);
+  var x = (mouseX + mousePressedX) / 2;
+  var y = (mouseY + mousePressedY) / 2;
+  var angle = Math.atan2(b, a); // * 180 / Math.PI;
+
+  stealBeams.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
 }
 
 function draw() {
