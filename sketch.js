@@ -143,7 +143,7 @@ function mouseReleased() {
       y: 0
     },
     pointB: {
-      x: -(c - 10) / 2,
+      x: -(c / 2),
       y: 0
     }
   });
@@ -152,7 +152,7 @@ function mouseReleased() {
     bodyB: bodyC !== null ? bodyC : j.body,
     stiffness: 1.0,
     pointA: {
-      x: (c - 10) / 2,
+      x: c / 2,
       y: 0
     },
     pointB: {
