@@ -126,7 +126,7 @@ function mouseReleased() {
   //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
   console.log(angle);
   //elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  var sb = new SteelBeam(x, y, c - 30, 15, angle);
+  var sb = new SteelBeam(x, y, c - 20, 15, angle);
   elements.push(sb);
 
   if(bodyC === null) {
@@ -137,7 +137,7 @@ function mouseReleased() {
   var c1 = Constraint.create({
     bodyA: bodyA,
     bodyB: sb.body,
-    stiffness: 0.8,
+    stiffness: 1.0,
     pointA: {
       x: 0,
       y: 0
