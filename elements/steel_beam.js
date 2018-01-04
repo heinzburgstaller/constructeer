@@ -20,7 +20,7 @@ class SteelBeam extends BaseElement {
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    strokeWeight(4);
+    strokeWeight(1);
     stroke('#202021');
     if (this.mouseOnBody) {
       fill('#6f0000');

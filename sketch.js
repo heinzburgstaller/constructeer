@@ -9,8 +9,7 @@ var engine;
 var world;
 
 var ground;
-var stealBeams = [];
-var joints = [];
+var elements = [];
 var beam1;
 var beam2;
 
@@ -18,18 +17,17 @@ var a = -1000;
 var c1;
 
 function setup() {
-  createCanvas(1200, 800);
+  var p5Canvas = createCanvas(1200, 700);
+  p5Canvas.parent("canvasContainer");
   engine = Engine.create();
   world = engine.world;
   //Engine.run(engine); // Done in draw() function
 
-  ground = new Ground(width / 2, 775, width, 50); // Grass
+  ground = new Ground(width / 2, p5Canvas.height - 50 / 2, width, 50); // Grass
 
-  beam1 = new SteelBeam(200, 650, 20, 200, 0);
-  beam2 = new SteelBeam(300, 550, 200, 20, 0);
+  beam1 = new SteelBeam(200, p5Canvas.height - 150, 20, 200, 0);
+  beam2 = new SteelBeam(300, p5Canvas.height - 250, 200, 20, 0);
   //beam3 = new SteelBeam(400, 650, 20, 200, 0);
-
-
 
   c1 = Constraint.create({
     bodyA: beam1.body,
@@ -60,7 +58,7 @@ function mouseDragged() {
 }
 
 function mouseMoved() {
-  stealBeams.forEach(item => {
+  elements.forEach(item => {
     item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
   });
 }
@@ -87,7 +85,7 @@ function mouseReleased() {
   var y = (mouseY + mousePressedY) / 2;
   var angle = Math.atan2(b, a); // * 180 / Math.PI;
 
-  stealBeams.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
+  elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
   console.log(angle);
   //joints.push(new Joint(mousePressedX, mousePressedY, 10));
   //joints.push(new Joint(mouseX, mouseY, 10));
@@ -99,15 +97,15 @@ function keyPressed() {
 
 function draw() {
   background('#bce6ff'); // sky
-  Engine.update(engine);
+  //Engine.update(engine);
 
   if (drawing == true) {
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
   }
 
   ground.show();
-  stealBeams.forEach(item => item.show());
-  joints.forEach(item => item.show());
+  elements.forEach(item => item.show());
+  //joints.forEach(item => item.show());
 
   beam1.show();
   beam2.show();
