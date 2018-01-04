@@ -50,13 +50,15 @@ function testConstruction() {
   runEngine = true;
 }
 
-var mouseDraggedX;
-var mouseDraggedY;
+var mouseDraggedX = -1;
+var mouseDraggedY = -1;
 
 function mouseDragged() {
-  mouseDraggedX = mouseX;
-  mouseDraggedY = mouseY;
-  drawing = true;
+  if (mousePressedX >= 0 && mousePressedY >= 0) {
+    drawing = true;
+    mouseDraggedX = mouseX;
+    mouseDraggedY = mouseY;
+  }
 }
 
 function mouseMoved() {
@@ -76,21 +78,47 @@ function mouseClicked() {
   });
 }
 
-var mousePressedX;
-var mousePressedY;
+var mousePressedX = -1;
+var mousePressedY = -1;
 var drawing = false;
 
 function mousePressed() {
-  mousePressedX = mouseX;
-  mousePressedY = mouseY;
+  var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
+  var joints = elements.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
+  var items = anchors.concat(joints);
+  if (items.length >= 1) {
+    mousePressedX = items[0].body.position.x;
+    mousePressedY = items[0].body.position.y;
+  } else {
+    mousePressedX = -1;
+    mousePressedY = -1;
+  }
 }
 
 function mouseReleased() {
-  if (mousePressedX < 0 || mousePressedY < 0) {
+  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false) {
     return;
   }
 
-  console.log(mousePressedX + " - " + mousePressedY);
+  var firstPoint = { x: 0, y: 0 };
+  var secondPoint = { x: 0, y: 0 };
+
+  if (mousePressedY == mouseY) {
+    if (mousePressedX < mouseX) {
+      firstPoint = { x: mousePressedX, y: mousePressedY };
+      secondPoint = { x: mouseX, y: mouseY };
+    } else {
+      firstPoint = { x: mouseX, y: mouseY };
+      secondPoint = { x: mousePressedX, y: mousePressedY };
+    }
+  } else if (mousePressedY < mouseY) {
+    firstPoint = { x: mousePressedX, y: mousePressedY };
+    secondPoint = { x: mouseX, y: mouseY };
+  } else {
+    firstPoint = { x: mouseX, y: mouseY };
+    secondPoint = { x: mousePressedX, y: mousePressedY };
+  }
+
   drawing = false;
   var a = mouseX - mousePressedX;
   var b = mouseY - mousePressedY;
@@ -98,11 +126,13 @@ function mouseReleased() {
   var x = (mouseX + mousePressedX) / 2;
   var y = (mouseY + mousePressedY) / 2;
   var angle = Math.atan2(b, a); // * 180 / Math.PI;
+  var a = angle + (Math.PI / 2);
 
   //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
-  //console.log(angle);
-  elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  elements.push(new Joint(mouseX, mouseY, 10));
+  console.log(angle);
+  //elements.push(new Joint(mousePressedX, mousePressedY, 10));
+  elements.push(new SteelBeam(x, y, 15, c - 30, a));
+  elements.push(new Joint(mouseX, mouseY, 12));
 }
 
 function keyPressed() {
