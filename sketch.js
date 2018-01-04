@@ -120,18 +120,18 @@ function mouseReleased() {
   }
 
   drawing = false;
-  var a = mouseX - mousePressedX;
-  var b = mouseY - mousePressedY;
+  var a = secondPoint.x - firstPoint.x;
+  var b = secondPoint.y - firstPoint.y;
   var c = Math.sqrt(a * a + b * b);
   var x = (mouseX + mousePressedX) / 2;
   var y = (mouseY + mousePressedY) / 2;
   var angle = Math.atan2(b, a); // * 180 / Math.PI;
-  var a = angle + (Math.PI / 2);
+
 
   //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
   console.log(angle);
   //elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  elements.push(new SteelBeam(x, y, 15, c - 30, a));
+  elements.push(new SteelBeam(x, y, c - 30, 15, angle));
   elements.push(new Joint(mouseX, mouseY, 12));
 }
 
