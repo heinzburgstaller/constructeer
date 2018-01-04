@@ -25,25 +25,6 @@ function setup() {
 
   level = new Level01(p5Canvas.width, p5Canvas.height);
   level.setup();
-
-  /*
-  c1 = Constraint.create({
-    bodyA: beam1.body,
-    bodyB: beam2.body,
-    length: 10,
-    stiffness: 0.8,
-    pointA: {
-      x: 0,
-      y: -100
-    },
-    pointB: {
-      x: -100,
-      y: 0
-    }
-  });
-  World.add(world, c1);
-*/
-
 }
 
 function testConstruction() {
@@ -81,23 +62,37 @@ function mouseClicked() {
 var mousePressedX = -1;
 var mousePressedY = -1;
 var drawing = false;
+var bodyA = null;
 
 function mousePressed() {
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
-  var joints = elements.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
+  var joints = elements.filter(anchor => { return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY) });
   var items = anchors.concat(joints);
   if (items.length >= 1) {
     mousePressedX = items[0].body.position.x;
     mousePressedY = items[0].body.position.y;
+    bodyA = items[0].body;
   } else {
     mousePressedX = -1;
     mousePressedY = -1;
+    bodyA = null;
   }
 }
 
 function mouseReleased() {
   if (mousePressedX < 0 || mousePressedY < 0 || drawing == false) {
     return;
+  }
+
+  var bodyC = null;
+
+  var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
+  var joints = elements.filter(anchor => { return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY) });
+  var items = anchors.concat(joints);
+  if (items.length >= 1) {
+    mouseX = items[0].body.position.x;
+    mouseY = items[0].body.position.y;
+    bodyC = items[0].body;
   }
 
   var firstPoint = { x: 0, y: 0 };
@@ -131,8 +126,42 @@ function mouseReleased() {
   //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
   console.log(angle);
   //elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  elements.push(new SteelBeam(x, y, c - 30, 15, angle));
-  elements.push(new Joint(mouseX, mouseY, 12));
+  var sb = new SteelBeam(x, y, c - 30, 15, angle);
+  elements.push(sb);
+
+  if(bodyC === null) {
+    var j = new Joint(mouseX, mouseY, 12);
+    elements.push(j);
+  }
+  
+  var c1 = Constraint.create({
+    bodyA: bodyA,
+    bodyB: sb.body,
+    stiffness: 0.8,
+    pointA: {
+      x: 0,
+      y: 0
+    },
+    pointB: {
+      x: -(c - 10) /2,
+      y: 0
+    }
+  });
+  var c2 = Constraint.create({
+    bodyA: sb.body,
+    bodyB: bodyC !== null ? bodyC : j.body,
+    stiffness: 0.8,
+    pointA: {
+      x: c - 10 /2,
+      y: 0
+    },
+    pointB: {
+      x: 0,
+      y: 0
+    }
+  });
+  World.add(world, c1);
+  World.add(world, c2);
 }
 
 function keyPressed() {
