@@ -7,6 +7,7 @@ var Engine = Matter.Engine,
 
 var engine;
 var world;
+var runEngine = false;
 
 var level;
 var elements = [];
@@ -45,6 +46,10 @@ function setup() {
 
 }
 
+function testConstruction() {
+  runEngine = true;
+}
+
 var mouseDraggedX;
 var mouseDraggedY;
 
@@ -65,7 +70,7 @@ function mouseMoved() {
 
 function mouseClicked() {
   elements.forEach(item => {
-    if(item.pointIsIn(mouseX, mouseY)) {
+    if (item.pointIsIn(mouseX, mouseY)) {
       item.mouseClicked();
     }
   });
@@ -81,6 +86,11 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+  if (mousePressedX < 0 || mousePressedY < 0) {
+    return;
+  }
+
+  console.log(mousePressedX + " - " + mousePressedY);
   drawing = false;
   var a = mouseX - mousePressedX;
   var b = mouseY - mousePressedY;
@@ -100,7 +110,9 @@ function keyPressed() {
 }
 
 function draw() {
-  Engine.update(engine);
+  if (runEngine) {
+    Engine.update(engine);
+  }
 
   level.show();
   elements.forEach(item => item.show());
