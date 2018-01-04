@@ -1,20 +1,30 @@
-function Joint(x, y, r) {
-  var options = {
-    friction: 0.95,
-    restitution: 0.2, // bouncyness
-    isStatic: false
-  }
-  this.body = Bodies.circle(x, y, r, options);
-  this.r = r;
-  World.add(world, this.body);
-}
+class Joint extends BaseElement {
 
-Joint.prototype.show = function() {
-  fill(0,0,0);
-  //noStroke();
-  var pos = this.body.position;
-  push();
-  translate(pos.x, pos.y);
-  ellipse(0, 0, this.r * 2);
-  pop();
+  constructor(x, y, r, isStatic = false) {
+    var options = {
+      friction: 0.95,
+      restitution: 0.2, // bouncyness
+      isStatic: isStatic
+    }
+
+    super(Bodies.circle(x, y, r, options));
+    this.r = r;
+  }
+
+  draw() {
+    var pos = this.body.position;
+    strokeWeight(1);
+    stroke('#202021');
+    if (this.body.isStatic) {
+      fill('#705114');
+    } else {
+      fill('#7c7462');
+    }
+    if (this.mouseOnBody) {
+      fill('#bc0000');
+    }
+    translate(pos.x, pos.y);
+    ellipse(0, 0, this.r * 2);
+  }
+
 }

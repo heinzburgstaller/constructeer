@@ -8,7 +8,7 @@ var Engine = Matter.Engine,
 var engine;
 var world;
 
-var ground;
+var level;
 var elements = [];
 var beam1;
 var beam2;
@@ -21,14 +21,11 @@ function setup() {
   p5Canvas.parent("canvasContainer");
   engine = Engine.create();
   world = engine.world;
-  //Engine.run(engine); // Done in draw() function
 
-  ground = new Ground(width / 2, p5Canvas.height - 50 / 2, width, 50); // Grass
+  level = new Level01(p5Canvas.width, p5Canvas.height);
+  level.setup();
 
-  beam1 = new SteelBeam(200, p5Canvas.height - 150, 20, 200, 0);
-  beam2 = new SteelBeam(300, p5Canvas.height - 250, 200, 20, 0);
-  //beam3 = new SteelBeam(400, 650, 20, 200, 0);
-
+  /*
   c1 = Constraint.create({
     bodyA: beam1.body,
     bodyB: beam2.body,
@@ -44,7 +41,7 @@ function setup() {
     }
   });
   World.add(world, c1);
-
+*/
 
 }
 
@@ -58,13 +55,20 @@ function mouseDragged() {
 }
 
 function mouseMoved() {
+  level.anchors.forEach(item => {
+    item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
+  });
   elements.forEach(item => {
     item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
   });
 }
 
 function mouseClicked() {
-
+  elements.forEach(item => {
+    if(item.pointIsIn(mouseX, mouseY)) {
+      item.mouseClicked();
+    }
+  });
 }
 
 var mousePressedX;
@@ -85,10 +89,10 @@ function mouseReleased() {
   var y = (mouseY + mousePressedY) / 2;
   var angle = Math.atan2(b, a); // * 180 / Math.PI;
 
-  elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
-  console.log(angle);
-  //joints.push(new Joint(mousePressedX, mousePressedY, 10));
-  //joints.push(new Joint(mouseX, mouseY, 10));
+  //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
+  //console.log(angle);
+  elements.push(new Joint(mousePressedX, mousePressedY, 10));
+  elements.push(new Joint(mouseX, mouseY, 10));
 }
 
 function keyPressed() {
@@ -96,21 +100,23 @@ function keyPressed() {
 }
 
 function draw() {
-  background('#bce6ff'); // sky
-  //Engine.update(engine);
+  Engine.update(engine);
+
+  level.show();
+  elements.forEach(item => item.show());
 
   if (drawing == true) {
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
   }
 
-  ground.show();
-  elements.forEach(item => item.show());
+
   //joints.forEach(item => item.show());
 
-  beam1.show();
-  beam2.show();
+  //beam1.show();
+  //beam2.show();
   //beam3.show();
 
+  /*
   if (a == -1000) {
     a = beam1.getAngle() + beam2.getAngle();
     console.log(a);
@@ -119,6 +125,6 @@ function draw() {
   if (beam1.getAngle() + beam2.getAngle() > a + 1.0) {
     World.remove(world, c1);
 
-  }
+  } */
 
 }

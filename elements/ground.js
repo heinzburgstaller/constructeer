@@ -1,21 +1,26 @@
-function Ground(x, y, w, h) {
-  var options = {
-    isStatic: true
+class Ground extends BaseElement {
+
+  constructor(x, y, w, h, a = 0.0) {
+    var options = {
+      angle: a,
+      isStatic: true
+    }
+
+    super(Bodies.rectangle(x, y, w, h, options));
+    this.w = w;
+    this.h = h;
+    this.fillColor = '#006600';
   }
-  this.body = Bodies.rectangle(x, y, w, h, options);
-  this.w = w;
-  this.h = h;
-  World.add(world, this.body);
 
-  this.show = function () {
-    var pos = this.body.position;
-
-    push();
+  draw() {
     noStroke(255);
     fill('#006600');
     rectMode(CENTER);
     rect(this.body.position.x, this.body.position.y, this.w, this.h);
-    pop();
+  }
+
+  getAngle() {
+    return this.body.angle;
   }
 
 }

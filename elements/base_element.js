@@ -12,7 +12,7 @@ class BaseElement {
     pop();
   }
 
-  onMouseOver() {
+  mouseClicked() {
 
   }
 
