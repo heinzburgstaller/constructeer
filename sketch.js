@@ -21,6 +21,7 @@ function setup() {
   var p5Canvas = createCanvas(1200, 700);
   p5Canvas.parent("canvasContainer");
   engine = Engine.create();
+  //engine.constraintIterations = 5;
   world = engine.world;
 
   level = new Level02(p5Canvas.width, p5Canvas.height);

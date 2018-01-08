@@ -6,6 +6,7 @@ class SteelBeam extends BaseElement {
       restitution: 0.2, // bouncyness
       angle: a,
       isStatic: false,
+      density: 1.0,
       collisionFilter: {
         group: "construction"
       }

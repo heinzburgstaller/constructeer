@@ -5,7 +5,7 @@ class Snowball extends BaseElement {
       friction: 0.95,
       restitution: 0.2, // bouncyness
       isStatic: false,
-      density: 0.1,
+      density: 0.2,
     }
 
     super(Bodies.circle(x, y, r, options));
