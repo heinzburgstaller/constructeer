@@ -5,7 +5,11 @@ class SteelBeam extends BaseElement {
       friction: 0.95,
       restitution: 0.2, // bouncyness
       angle: a,
-      isStatic: false
+      isStatic: false,
+      collisionFilter: {
+        group: "construction"
+      }
+      
     }
 
     super(Bodies.rectangle(x, y, w, h, options));
@@ -28,7 +32,7 @@ class SteelBeam extends BaseElement {
       fill('#4e4e51');
     }
 
-    rect(0, 0, this.w, this.h);
+    rect(0, 0, this.w - 30, this.h);
   }
 
   getAngle() {

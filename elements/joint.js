@@ -4,7 +4,11 @@ class Joint extends BaseElement {
     var options = {
       friction: 0.95,
       restitution: 0.2, // bouncyness
-      isStatic: isStatic
+      isStatic: isStatic,
+      density: 0.1,
+      collisionFilter: {
+        group: "construction"
+      }
     }
 
     super(Bodies.circle(x, y, r, options));

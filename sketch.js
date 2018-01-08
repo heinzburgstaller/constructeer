@@ -97,21 +97,30 @@ function mouseReleased() {
 
   var firstPoint = { x: 0, y: 0 };
   var secondPoint = { x: 0, y: 0 };
+  var orient = 0;
 
   if (mousePressedY == mouseY) {
     if (mousePressedX < mouseX) {
       firstPoint = { x: mousePressedX, y: mousePressedY };
       secondPoint = { x: mouseX, y: mouseY };
+      console.log('gerade nach rechts');
+      orient = 1;
     } else {
       firstPoint = { x: mouseX, y: mouseY };
       secondPoint = { x: mousePressedX, y: mousePressedY };
+      console.log('gerade nach links');
+      orient = 2;
     }
   } else if (mousePressedY < mouseY) {
     firstPoint = { x: mousePressedX, y: mousePressedY };
     secondPoint = { x: mouseX, y: mouseY };
+    console.log('unten');
+    orient = 3;
   } else {
     firstPoint = { x: mouseX, y: mouseY };
     secondPoint = { x: mousePressedX, y: mousePressedY };
+    console.log('oben');
+    orient = 4;
   }
 
   drawing = false;
@@ -126,7 +135,7 @@ function mouseReleased() {
   //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
   console.log(angle);
   //elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  c = c - 30;
+  //c = c - 30;
   var sb = new SteelBeam(x, y, c, 15, angle);
   elements.push(sb);
 
@@ -138,25 +147,25 @@ function mouseReleased() {
   var c1 = Constraint.create({
     bodyA: bodyA,
     bodyB: sb.body,
-    stiffness: 0.75,
-    damping: 0.05,
+    stiffness: 1.0,
+    length: 0.0,
     pointA: {
       x: 0,
       y: 0
     },
     pointB: {
-      x: -(c / 2),
-      y: 0
+      x: orient == 3 ? -a / 2 : a / 2,
+      y: orient == 3 ? -b / 2 : b / 2
     }
   });
   var c2 = Constraint.create({
     bodyA: sb.body,
     bodyB: bodyC !== null ? bodyC : j.body,
-    stiffness: 0.75,
-    damping: 0.05,
+    stiffness: 1.0,
+    length: 0,
     pointA: {
-      x: c / 2,
-      y: 0
+      x: orient == 3 ? a / 2 : -a / 2,
+      y: orient == 3 ? b / 2 : -b / 2
     },
     pointB: {
       x: 0,
