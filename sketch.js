@@ -23,7 +23,7 @@ function setup() {
   engine = Engine.create();
   world = engine.world;
 
-  level = new Level01(p5Canvas.width, p5Canvas.height);
+  level = new Level02(p5Canvas.width, p5Canvas.height);
   level.setup();
 }
 
