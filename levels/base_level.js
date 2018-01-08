@@ -5,6 +5,7 @@ class BaseLevel {
     this.height = height;
     this.ground = [];
     this.anchors = [];
+    this.others = [];
   }
 
   setup() {
@@ -20,6 +21,14 @@ class BaseLevel {
     this.anchors.forEach(element => {
       element.show();
     });
+
+    this.others.forEach(element => {
+      element.show();
+    });
+  }
+
+  doCatastrophe() {
+
   }
 
 }

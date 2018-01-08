@@ -14,4 +14,8 @@ class Level01 extends BaseLevel {
     super.show();
   }
 
+  doCatastrophe() {
+    this.others.push(new Meteor(this.width / 2, -200, 50));
+  }
+
 }

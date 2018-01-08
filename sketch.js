@@ -31,6 +31,15 @@ function testConstruction() {
   runEngine = true;
 }
 
+function checkMouseOnBody() {
+  level.anchors.forEach(item => {
+    item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
+  });
+  elements.forEach(item => {
+    item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
+  });
+}
+
 var mouseDraggedX = -1;
 var mouseDraggedY = -1;
 
@@ -40,15 +49,12 @@ function mouseDragged() {
     mouseDraggedX = mouseX;
     mouseDraggedY = mouseY;
   }
+
+  checkMouseOnBody();
 }
 
 function mouseMoved() {
-  level.anchors.forEach(item => {
-    item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
-  });
-  elements.forEach(item => {
-    item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
-  });
+  checkMouseOnBody();
 }
 
 function mouseClicked() {
@@ -183,6 +189,10 @@ function keyPressed() {
 function draw() {
   if (runEngine) {
     Engine.update(engine);
+  }
+
+  if (frameCount === 60) {
+    level.doCatastrophe();
   }
 
   level.show();
