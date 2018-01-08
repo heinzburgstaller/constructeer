@@ -153,7 +153,7 @@ function mouseReleased() {
   var c1 = Constraint.create({
     bodyA: bodyA,
     bodyB: sb.body,
-    stiffness: 1.0,
+    stiffness: 0.9,
     length: 0.0,
     pointA: {
       x: 0,
@@ -167,7 +167,7 @@ function mouseReleased() {
   var c2 = Constraint.create({
     bodyA: sb.body,
     bodyB: bodyC !== null ? bodyC : j.body,
-    stiffness: 1.0,
+    stiffness: 0.9,
     length: 0,
     pointA: {
       x: orient == 3 ? a / 2 : -a / 2,
