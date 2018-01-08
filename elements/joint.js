@@ -5,7 +5,7 @@ class Joint extends BaseElement {
       friction: 0.95,
       restitution: 0.2, // bouncyness
       isStatic: isStatic,
-      density: 0.1,
+      density: 1.0,
       collisionFilter: {
         group: "construction"
       }
