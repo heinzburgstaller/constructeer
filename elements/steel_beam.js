@@ -9,7 +9,7 @@ class SteelBeam extends BaseElement {
       collisionFilter: {
         group: "construction"
       }
-      
+
     }
 
     super(Bodies.rectangle(x, y, w, h, options));
@@ -26,12 +26,7 @@ class SteelBeam extends BaseElement {
     rectMode(CENTER);
     strokeWeight(1);
     stroke('#202021');
-    if (this.mouseOnBody) {
-      fill('#6f0000');
-    } else {
-      fill('#4e4e51');
-    }
-
+    fill('#4e4e51');
     rect(0, 0, this.w - 30, this.h);
   }
 
