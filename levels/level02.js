@@ -16,7 +16,7 @@ class Level02 extends BaseLevel {
 
   doCatastrophe() {
     for (var i = 0; i < 100; i++) {
-      this.others.push(new Snowball(this.width / 2 + random(-80, 80), random(-12, -150), random(2, 10)));
+      this.others.push(new Snowball(this.width / 2 + random(-80, 80), random(-12, -150), random(3, 12)));
     }
   }
 
