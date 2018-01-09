@@ -24,12 +24,25 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  level = new Level02(p5Canvas.width, p5Canvas.height);
+  level = new Level02(this.width, this.height);
   level.setup();
 }
 
 function testConstruction() {
   runEngine = true;
+  level.doCatastrophe();
+}
+
+function loadLeve01() {
+  clearAll();
+  level = new Level01(this.width, this.height);
+  level.setup();
+}
+
+function loadLeve02() {
+  clearAll();
+  level = new Level02(this.width, this.height);
+  level.setup();
 }
 
 function checkMouseOnBody() {
@@ -192,10 +205,6 @@ function draw() {
     Engine.update(engine);
   }
 
-  if (frameCount === 60) {
-    level.doCatastrophe();
-  }
-
   level.show();
   elements.forEach(item => item.show());
 
@@ -222,3 +231,12 @@ function draw() {
   } */
 
 }
+
+function clearAll() {
+  runEngine = false;
+  elements.forEach(item => item.remove());
+  elements = [];
+  level.clear();
+  frameCount = 0;
+}
+

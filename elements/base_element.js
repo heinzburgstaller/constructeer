@@ -3,10 +3,15 @@ class BaseElement {
   constructor(body) {
     this.body = body;
     this.mouseOnBody = false;
+    this.isRemoved = false;
     World.add(world, this.body);
   }
 
   show() {
+    if (this.isRemoved) {
+      return;
+    }
+
     push();
     this.draw();
     pop();
@@ -24,6 +29,11 @@ class BaseElement {
 
   draw() {
     throw new Error('You have to implement the method draw()!');
+  }
+
+  remove() {
+    World.remove(world, this.body);
+    this.isRemoved = true;
   }
 
 }
