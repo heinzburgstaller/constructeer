@@ -18,7 +18,7 @@ var a = -1000;
 var c1;
 
 function setup() {
-  var p5Canvas = createCanvas(1200, 700);
+  var p5Canvas = createCanvas(1170, 700);
   p5Canvas.parent("canvasContainer");
   engine = Engine.create();
   //engine.constraintIterations = 5;
@@ -237,6 +237,5 @@ function clearAll() {
   elements.forEach(item => item.remove());
   elements = [];
   level.clear();
-  frameCount = 0;
 }
 
