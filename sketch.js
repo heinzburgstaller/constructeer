@@ -11,11 +11,7 @@ var runEngine = false;
 
 var level;
 var elements = [];
-var beam1;
-var beam2;
-
-var a = -1000;
-var c1;
+var helper = new Helper();
 
 function setup() {
   var p5Canvas = createCanvas(1170, 700);
@@ -60,8 +56,16 @@ var mouseDraggedY = -1;
 function mouseDragged() {
   if (mousePressedX >= 0 && mousePressedY >= 0) {
     drawing = true;
+    drawingLegal = false;
     mouseDraggedX = mouseX;
     mouseDraggedY = mouseY;
+
+    var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
+    var calc = helper.doBasicCalculations(sorted);
+
+    if (calc.c > 70 && calc.c <= 300) {
+      drawingLegal = true;
+    }
   }
 
   checkMouseOnBody();
@@ -82,6 +86,7 @@ function mouseClicked() {
 var mousePressedX = -1;
 var mousePressedY = -1;
 var drawing = false;
+var drawingLegal = false;
 var bodyA = null;
 
 function mousePressed() {
@@ -100,12 +105,12 @@ function mousePressed() {
 }
 
 function mouseReleased() {
-  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false) {
+  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false || drawingLegal == false) {
+    drawing = false;
     return;
   }
 
   var bodyC = null;
-
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
   var joints = elements.filter(anchor => { return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY) });
   var items = anchors.concat(joints);
@@ -115,48 +120,15 @@ function mouseReleased() {
     bodyC = items[0].body;
   }
 
-  var firstPoint = { x: 0, y: 0 };
-  var secondPoint = { x: 0, y: 0 };
-  var orient = 0;
-
-  if (mousePressedY == mouseY) {
-    if (mousePressedX < mouseX) {
-      firstPoint = { x: mousePressedX, y: mousePressedY };
-      secondPoint = { x: mouseX, y: mouseY };
-      console.log('gerade nach rechts');
-      orient = 1;
-    } else {
-      firstPoint = { x: mouseX, y: mouseY };
-      secondPoint = { x: mousePressedX, y: mousePressedY };
-      console.log('gerade nach links');
-      orient = 2;
-    }
-  } else if (mousePressedY < mouseY) {
-    firstPoint = { x: mousePressedX, y: mousePressedY };
-    secondPoint = { x: mouseX, y: mouseY };
-    console.log('unten');
-    orient = 3;
-  } else {
-    firstPoint = { x: mouseX, y: mouseY };
-    secondPoint = { x: mousePressedX, y: mousePressedY };
-    console.log('oben');
-    orient = 4;
-  }
+  var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
+  var firstPoint = sorted[0];
+  var secondPoint = sorted[1];
+  var orient = sorted[2];
 
   drawing = false;
-  var a = secondPoint.x - firstPoint.x;
-  var b = secondPoint.y - firstPoint.y;
-  var c = Math.sqrt(a * a + b * b);
-  var x = (mouseX + mousePressedX) / 2;
-  var y = (mouseY + mousePressedY) / 2;
-  var angle = Math.atan2(b, a); // * 180 / Math.PI;
+  var calc = helper.doBasicCalculations(sorted);
 
-
-  //elements.push(new SteelBeam(x, y, 20, c, angle + (Math.PI / 2)));
-  console.log(angle);
-  //elements.push(new Joint(mousePressedX, mousePressedY, 10));
-  //c = c - 30;
-  var sb = new SteelBeam(x, y, c, 15, angle);
+  var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
   elements.push(sb);
 
   if (bodyC === null) {
@@ -174,8 +146,8 @@ function mouseReleased() {
       y: 0
     },
     pointB: {
-      x: orient == 3 ? -a / 2 : a / 2,
-      y: orient == 3 ? -b / 2 : b / 2
+      x: orient == 3 ? -calc.a / 2 : calc.a / 2,
+      y: orient == 3 ? -calc.b / 2 : calc.b / 2
     }
   });
   var c2 = Constraint.create({
@@ -184,8 +156,8 @@ function mouseReleased() {
     stiffness: 0.92,
     length: 0,
     pointA: {
-      x: orient == 3 ? a / 2 : -a / 2,
-      y: orient == 3 ? b / 2 : -b / 2
+      x: orient == 3 ? calc.a / 2 : -calc.a / 2,
+      y: orient == 3 ? calc.b / 2 : -calc.b / 2
     },
     pointB: {
       x: 0,
@@ -209,27 +181,11 @@ function draw() {
   elements.forEach(item => item.show());
 
   if (drawing == true) {
+    stroke('red');
+    strokeWeight(3);
+    drawingLegal ? stroke('green') : stroke('red');
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
   }
-
-
-  //joints.forEach(item => item.show());
-
-  //beam1.show();
-  //beam2.show();
-  //beam3.show();
-
-  /*
-  if (a == -1000) {
-    a = beam1.getAngle() + beam2.getAngle();
-    console.log(a);
-  }
-
-  if (beam1.getAngle() + beam2.getAngle() > a + 1.0) {
-    World.remove(world, c1);
-
-  } */
-
 }
 
 function clearAll() {
