@@ -197,6 +197,5 @@ function testBreakage() {
   var brokeConstraints = world.constraints.filter(c => {
     return c.bodyA.angularSpeed > breakageAngularSpeed || c.bodyB.angularSpeed > breakageAngularSpeed
   });
-
   brokeConstraints.forEach(c => World.remove(world, c));
 }
