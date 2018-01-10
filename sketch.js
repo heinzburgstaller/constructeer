@@ -61,7 +61,7 @@ function mouseDragged() {
     mouseDraggedY = mouseY;
 
     var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
-    var calc = helper.doBasicCalculations(sorted);
+    var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
 
     if (calc.c > 70 && calc.c <= 300) {
       drawingLegal = true;
@@ -120,13 +120,9 @@ function mouseReleased() {
     bodyC = items[0].body;
   }
 
-  var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
-  var firstPoint = sorted[0];
-  var secondPoint = sorted[1];
-  var orient = sorted[2];
-
   drawing = false;
-  var calc = helper.doBasicCalculations(sorted);
+  var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
+  var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
 
   var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
   elements.push(sb);
@@ -146,8 +142,8 @@ function mouseReleased() {
       y: 0
     },
     pointB: {
-      x: orient == 3 ? -calc.a / 2 : calc.a / 2,
-      y: orient == 3 ? -calc.b / 2 : calc.b / 2
+      x: sorted.orient == 3 ? -calc.a / 2 : calc.a / 2,
+      y: sorted.orient == 3 ? -calc.b / 2 : calc.b / 2
     }
   });
   var c2 = Constraint.create({
@@ -156,8 +152,8 @@ function mouseReleased() {
     stiffness: 0.92,
     length: 0,
     pointA: {
-      x: orient == 3 ? calc.a / 2 : -calc.a / 2,
-      y: orient == 3 ? calc.b / 2 : -calc.b / 2
+      x: sorted.orient == 3 ? calc.a / 2 : -calc.a / 2,
+      y: sorted.orient == 3 ? calc.b / 2 : -calc.b / 2
     },
     pointB: {
       x: 0,

@@ -33,18 +33,22 @@ class Helper {
       orient = 4;
     }
 
-    return [firstPoint, secondPoint, orient];
+    return {
+      firstPoint: firstPoint,
+      secondPoint: secondPoint,
+      orient: orient
+    };
   }
 
-  doBasicCalculations(sorted) {
-    var a = sorted[1].x - sorted[0].x;
-    var b = sorted[1].y - sorted[0].y;
+  doBasicCalculations(firstPoint, secondPoint) {
+    var a = secondPoint.x - firstPoint.x;
+    var b = secondPoint.y - firstPoint.y;
     return {
       a: a,
       b: b,
       c: Math.sqrt(a * a + b * b),
-      x: (sorted[1].x + sorted[0].x) / 2,
-      y: (sorted[1].y + sorted[0].y) / 2,
+      x: (secondPoint.x + firstPoint.x) / 2,
+      y: (secondPoint.y + firstPoint.y) / 2,
       angle: Math.atan2(b, a)
     };
   }
