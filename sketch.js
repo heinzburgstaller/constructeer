@@ -29,13 +29,13 @@ function testConstruction() {
   level.doCatastrophe();
 }
 
-function loadLeve01() {
+function loadLevel01() {
   clearAll();
   level = new Level01(this.width, this.height);
   level.setup();
 }
 
-function loadLeve02() {
+function loadLevel02() {
   clearAll();
   level = new Level02(this.width, this.height);
   level.setup();
@@ -142,8 +142,8 @@ function mouseReleased() {
       y: 0
     },
     pointB: {
-      x: sorted.orient == 3 ? -calc.a / 2 : calc.a / 2,
-      y: sorted.orient == 3 ? -calc.b / 2 : calc.b / 2
+      x: sorted.orient == 'down' ? -calc.a / 2 : calc.a / 2,
+      y: sorted.orient == 'down' ? -calc.b / 2 : calc.b / 2
     }
   });
   var c2 = Constraint.create({
@@ -152,8 +152,8 @@ function mouseReleased() {
     stiffness: 0.92,
     length: 0,
     pointA: {
-      x: sorted.orient == 3 ? calc.a / 2 : -calc.a / 2,
-      y: sorted.orient == 3 ? calc.b / 2 : -calc.b / 2
+      x: sorted.orient == 'down' ? calc.a / 2 : -calc.a / 2,
+      y: sorted.orient == 'down' ? calc.b / 2 : -calc.b / 2
     },
     pointB: {
       x: 0,
@@ -165,12 +165,13 @@ function mouseReleased() {
 }
 
 function keyPressed() {
-  console.log(key + ' pressed');
+  //console.log(key + ' pressed');
 }
 
 function draw() {
   if (runEngine) {
     Engine.update(engine);
+    testBreakage();
   }
 
   level.show();
@@ -191,3 +192,11 @@ function clearAll() {
   level.clear();
 }
 
+function testBreakage() {
+  var breakageAngularSpeed = 0.1;
+  var brokeConstraints = world.constraints.filter(c => {
+    return c.bodyA.angularSpeed > breakageAngularSpeed || c.bodyB.angularSpeed > breakageAngularSpeed
+  });
+
+  brokeConstraints.forEach(c => World.remove(world, c));
+}

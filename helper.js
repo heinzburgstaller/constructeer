@@ -7,30 +7,30 @@ class Helper {
   sortTwoPoints(x1, y1, x2, y2) {
     var firstPoint = { x: 0, y: 0 };
     var secondPoint = { x: 0, y: 0 };
-    var orient = 0;
+    var orient = 'down';
 
     if (y1 == y2) {
       if (x1 < x2) {
         firstPoint = { x: x1, y: y1 };
         secondPoint = { x: x2, y: y2 };
         console.log('straight to the right');
-        orient = 1;
+        orient = 'down';
       } else {
         firstPoint = { x: x2, y: y2 };
         secondPoint = { x: x1, y: y1 };
         console.log('straight to the left');
-        orient = 2;
+        orient = 'up';
       }
     } else if (y1 < y2) {
       firstPoint = { x: x1, y: y1 };
       secondPoint = { x: x2, y: y2 };
       console.log('down');
-      orient = 3;
+      orient = 'down';
     } else {
       firstPoint = { x: x2, y: y2 };
       secondPoint = { x: x1, y: y1 };
       console.log('up');
-      orient = 4;
+      orient = 'up';
     }
 
     return {
