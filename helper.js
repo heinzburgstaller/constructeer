@@ -13,23 +13,23 @@ class Helper {
       if (x1 < x2) {
         firstPoint = { x: x1, y: y1 };
         secondPoint = { x: x2, y: y2 };
-        console.log('gerade nach rechts');
+        console.log('straight to the right');
         orient = 1;
       } else {
         firstPoint = { x: x2, y: y2 };
         secondPoint = { x: x1, y: y1 };
-        console.log('gerade nach links');
+        console.log('straight to the left');
         orient = 2;
       }
     } else if (y1 < y2) {
       firstPoint = { x: x1, y: y1 };
       secondPoint = { x: x2, y: y2 };
-      console.log('unten');
+      console.log('down');
       orient = 3;
     } else {
       firstPoint = { x: x2, y: y2 };
       secondPoint = { x: x1, y: y1 };
-      console.log('oben');
+      console.log('up');
       orient = 4;
     }
 
