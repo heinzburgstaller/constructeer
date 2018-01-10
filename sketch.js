@@ -62,12 +62,8 @@ function mouseDragged() {
 
     var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
     var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
-
-    if (calc.c > 70 && calc.c <= 300) {
-      drawingLegal = true;
-    }
+    drawingLegal = calc.c > 70 && calc.c <= 300;
   }
-
   checkMouseOnBody();
 }
 
@@ -91,7 +87,9 @@ var bodyA = null;
 
 function mousePressed() {
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
-  var joints = elements.filter(anchor => { return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY) });
+  var joints = elements.filter(anchor => {
+    return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
+  });
   var items = anchors.concat(joints);
   if (items.length >= 1) {
     mousePressedX = items[0].body.position.x;
@@ -112,7 +110,9 @@ function mouseReleased() {
 
   var bodyC = null;
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
-  var joints = elements.filter(anchor => { return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY) });
+  var joints = elements.filter(anchor => {
+    return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
+  });
   var items = anchors.concat(joints);
   if (items.length >= 1) {
     mouseX = items[0].body.position.x;
@@ -129,6 +129,7 @@ function mouseReleased() {
 
   if (bodyC === null) {
     var j = new Joint(mouseX, mouseY, 12);
+    bodyC = j.body;
     elements.push(j);
   }
 
@@ -148,7 +149,7 @@ function mouseReleased() {
   });
   var c2 = Constraint.create({
     bodyA: sb.body,
-    bodyB: bodyC !== null ? bodyC : j.body,
+    bodyB: bodyC,
     stiffness: 0.92,
     length: 0,
     pointA: {
