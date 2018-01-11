@@ -4,7 +4,7 @@ class Helper {
 
   }
 
-  sortTwoPoints(x1, y1, x2, y2) {
+  sortTwoPoints(x1, y1, x2, y2) { // mousePressedX, mousePressedY, mouseX, mouseY
     var firstPoint = { x: 0, y: 0 };
     var secondPoint = { x: 0, y: 0 };
     var orient = 'down';
