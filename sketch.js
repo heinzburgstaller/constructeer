@@ -178,15 +178,18 @@ function keyPressed() {
 var undoneElements = [];
 
 function undoConstruction() {
-  console.log("undo button was pressed");
-  var previousAnchor = elements.pop();
-  var previousBeam = elements.pop();
-  // console.log(previousAnchor);
-  // console.log(previousBeam);
-  undoneElements.push(previousBeam); // LIFO 
-  undoneElements.push(previousAnchor);
-  World.remove(world, previousAnchor);
-  World.remove(world, previousBeam);
+
+  if(elements.length > 0) {
+    console.log("undo button was pressed");
+    var previousAnchor = elements.pop();
+    var previousBeam = elements.pop();
+    // console.log(previousAnchor);
+    // console.log(previousBeam);
+    undoneElements.push(previousBeam); // LIFO 
+    undoneElements.push(previousAnchor);
+    World.remove(world, previousAnchor);
+    World.remove(world, previousBeam);
+  }
 
   //TODO disable button if no  elements to be undone
 
@@ -194,19 +197,20 @@ function undoConstruction() {
 
 function redoConstruction() {
 
-  console.log("redo button was pressed");
-  console.log(undoneElements.length)
+  if(undoneElements.length > 0) {
+    console.log("redo button was pressed");
+    console.log(undoneElements.length)
 
-  //for each redo, only re-add first two elements
-  var last = undoneElements[undoneElements.length - 1];
-  var secondlast = undoneElements[undoneElements.length - 2];
-  elements.push(last);
-  elements.push(secondlast);
-  World.add(world, last);
-  World.add(world, secondlast);  
-  undoneElements.pop();
-  undoneElements.pop();
-
+    //for each redo, only re-add first two elements
+    var last = undoneElements[undoneElements.length - 1];
+    var secondlast = undoneElements[undoneElements.length - 2];
+    elements.push(last);
+    elements.push(secondlast);
+    World.add(world, last);
+    World.add(world, secondlast);  
+    undoneElements.pop();
+    undoneElements.pop();
+  }
 
   //TODO disable button if no more elements to be redone
 
