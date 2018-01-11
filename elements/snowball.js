@@ -2,8 +2,8 @@ class Snowball extends BaseElement {
 
   constructor(x, y, r) {
     var options = {
-      friction: 0.95,
-      restitution: 0.2, // bouncyness
+      friction: 0.0,
+      restitution: 0.6, // bouncyness
       isStatic: false,
       density: 0.2,
     }

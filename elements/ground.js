@@ -3,7 +3,11 @@ class Ground extends BaseElement {
   constructor(x, y, w, h, a = 0.0) {
     var options = {
       angle: a,
-      isStatic: true
+      density: 1.0,
+      isStatic: true,
+      collisionFilter: {
+        group: "ground"
+      }
     }
 
     super(Bodies.rectangle(x, y, w, h, options));
@@ -13,10 +17,14 @@ class Ground extends BaseElement {
   }
 
   draw() {
+    var pos = this.body.position;
+    var angle = this.body.angle;
+    translate(pos.x, pos.y);
+    rotate(angle);
     noStroke(255);
     fill('#006600');
     rectMode(CENTER);
-    rect(this.body.position.x, this.body.position.y, this.w, this.h);
+    rect(0, 0, this.w, this.h);
   }
 
   getAngle() {
