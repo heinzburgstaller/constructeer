@@ -13,6 +13,7 @@ var level;
 var elements = [];
 var undoneElements = [];
 var helper = new Helper();
+var numberOfBeams = 0; 
 
 function setup() {
   var p5Canvas = createCanvas(1170, 700);
@@ -21,7 +22,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  level = new Level01(this.width, this.height);
+  level = new Level01(this.width, this.height, 10);
   level.setup();
 
   var undo = document.getElementsByName('undo-button').item(0);
@@ -29,6 +30,9 @@ function setup() {
 
   var redo = document.getElementsByName('redo-button').item(0);
   redo.setAttribute('disabled', true);
+
+  var counterbutton = document.getElementsByName('beams-left-button').item(0);
+  counterbutton.innerHTML = level.maxBeams;
 }
 
 function testConstruction() {
@@ -77,6 +81,7 @@ function mouseDragged() {
     var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
     drawingLegal = calc.c > 70 && calc.c <= 250;
   }
+
   checkMouseOnBody();
 }
 
@@ -99,6 +104,15 @@ var drawingLegal = false;
 var bodyA = null;
 
 function mousePressed() {
+
+  if(numberOfBeams >= level.maxBeams) {
+    console.log("MOUSEPRESS - maxbeams reached, current nr of beams:", numberOfBeams);
+    drawing = false;
+    drawingLegal = false;
+    alert("You have reached the maximum allowed number of beams for this level! Please undo and try again.");
+    return false;
+  }
+
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
   var joints = elements.filter(anchor => {
     return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
@@ -116,6 +130,7 @@ function mousePressed() {
 }
 
 function mouseReleased() {
+
   if (mousePressedX < 0 || mousePressedY < 0 || drawing == false || drawingLegal == false) {
     drawing = false;
     return;
@@ -138,6 +153,9 @@ function mouseReleased() {
   var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
 
   var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
+  numberOfBeams++;
+  var counterbutton = document.getElementsByName('beams-left-button').item(0);
+  counterbutton.innerHTML = level.maxBeams - numberOfBeams;
   elements.push(sb);
 
   if (bodyC === null) {
@@ -191,6 +209,8 @@ function undoConstruction() {
     undoneElements.push(previousAnchor);
     World.remove(world, previousAnchor);
     World.remove(world, previousBeam);
+    numberOfBeams--;
+    document.getElementsByName('beams-left-button').item(0).innerHTML = level.maxBeams - numberOfBeams;
 
   }
 }
@@ -206,6 +226,8 @@ function redoConstruction() {
     World.add(world, secondlast);  
     undoneElements.pop();
     undoneElements.pop();
+    numberOfBeams++;
+    document.getElementsByName('beams-left-button').item(0).innerHTML = level.maxBeams - numberOfBeams;
   }
 }
 
@@ -219,7 +241,16 @@ function draw() {
   level.show();
   elements.forEach(item => item.show());
 
+
   if (drawing == true) {
+
+    // if(numberOfBeams >= level.maxBeams) {
+    //   console.log("maxbeams reached, current nr of beams:", numberOfBeams);
+    //   drawing = false;
+    //   drawingLegal = false;
+    //   return false;
+    // }
+
     stroke('red');
     strokeWeight(3);
     drawingLegal ? stroke('green') : stroke('red');
@@ -260,3 +291,5 @@ function testBreakage() {
   });
   brokeConstraints.forEach(c => World.remove(world, c));
 }
+
+

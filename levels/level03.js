@@ -2,6 +2,7 @@ class Level03 extends BaseLevel {
 
   constructor(width, height) {
     super(width, height);
+    this.maxBeams = 10;
   }
 
   setup() {

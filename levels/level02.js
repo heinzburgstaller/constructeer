@@ -2,6 +2,7 @@ class Level02 extends BaseLevel {
 
   constructor(width, height) {
     super(width, height);
+    this.maxBeams = 20;
   }
 
   setup() {
