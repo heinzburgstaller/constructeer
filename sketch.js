@@ -11,6 +11,7 @@ var runEngine = false;
 
 var level;
 var elements = [];
+var undoneElements = [];
 var helper = new Helper();
 
 function setup() {
@@ -22,6 +23,12 @@ function setup() {
 
   level = new Level01(this.width, this.height);
   level.setup();
+
+  var undo = document.getElementsByName('undo-button').item(0);
+  undo.setAttribute('disabled', true);
+
+  var redo = document.getElementsByName('redo-button').item(0);
+  redo.setAttribute('disabled', true);
 }
 
 function testConstruction() {
@@ -175,33 +182,22 @@ function keyPressed() {
   //console.log(key + ' pressed');
 }
 
-var undoneElements = [];
-
 function undoConstruction() {
 
-  if(elements.length > 0) {
-    console.log("undo button was pressed");
+  if(elements.length >= 0) {
     var previousAnchor = elements.pop();
     var previousBeam = elements.pop();
-    // console.log(previousAnchor);
-    // console.log(previousBeam);
     undoneElements.push(previousBeam); // LIFO 
     undoneElements.push(previousAnchor);
     World.remove(world, previousAnchor);
     World.remove(world, previousBeam);
+
   }
-
-  //TODO disable button if no  elements to be undone
-
 }
 
 function redoConstruction() {
 
-  if(undoneElements.length > 0) {
-    console.log("redo button was pressed");
-    console.log(undoneElements.length)
-
-    //for each redo, only re-add first two elements
+  if(undoneElements.length >= 0) { 
     var last = undoneElements[undoneElements.length - 1];
     var secondlast = undoneElements[undoneElements.length - 2];
     elements.push(last);
@@ -211,9 +207,6 @@ function redoConstruction() {
     undoneElements.pop();
     undoneElements.pop();
   }
-
-  //TODO disable button if no more elements to be redone
-
 }
 
 
@@ -232,11 +225,30 @@ function draw() {
     drawingLegal ? stroke('green') : stroke('red');
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
   }
+
+  var undobutton = document.getElementsByName('undo-button').item(0);
+  var redobutton = document.getElementsByName('redo-button').item(0);
+
+  if(elements.length > 0) {
+    undobutton.removeAttribute('disabled');
+  }
+  else {
+    undobutton.setAttribute('disabled', true);
+  }
+
+  if(undoneElements.length > 0) {
+    redobutton.removeAttribute('disabled');
+  }
+  else {
+    redobutton.setAttribute('disabled', true);
+  }
 }
 
 function clearAll() {
   runEngine = false;
   elements.forEach(item => item.remove());
+  undoneElements.forEach(item => item.remove());
+  undoneElements = [];
   elements = [];
   level.clear();
 }
