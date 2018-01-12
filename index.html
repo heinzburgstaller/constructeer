@@ -59,28 +59,17 @@
           <button type="button" class="btn btn-success" onclick="loadLevel03()">Avalanche 2</button>
         </div>
       </div>
-      <div class="col-xs-3">
-        <div class="btn-group btn-group" role="group" aria-label="..."
-          style="padding-top: 16px;">
-          <a href="#" role="button" class="btn btn-default label-btn" aria-disabled="true">
-            Beams
-            <span id="beamsToGo" class="badge badge-warning">0</span>
-          </a>
-          </span>
-          <button type="button" name="undo-button" class="btn btn-warning"
-            onclick="undoConstruction()">
-            <span class="glyphicon glyphicon-arrow-left"></span> undo
-          </button>
-          <button type="button" name="redo-button" class="btn btn-warning"
-            onclick="redoConstruction()">
-            <span class="glyphicon glyphicon-arrow-right"></span> redo
-          </button>
-        </div>
+      <div class="col-xs-2" style="padding-top: 16px;">
+        <button type="button" name="undo-button" class="btn btn-warning"
+          onclick="undo()">
+          <span class="glyphicon glyphicon-arrow-left"></span> undo
+          <span id="beamsToGo" class="badge badge-warning">0</span>
+        </button>
       </div>
-      <div class="col-xs-2" style="padding-top: 16px;" >
-        <div class="btn-group btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-danger" onclick="construct()">
-                Construct</button>
+      <div class="col-xs-3" style="padding-top: 6px;">
+        <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">
+          <button type="button" class="btn btn-danger" onclick="construct()">
+            Construct</button>
           <button type="button" class="btn btn-primary" onclick="testConstruction()">
             <span class="glyphicon glyphicon-play-circle"></span>
             Run</button>

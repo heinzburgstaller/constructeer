@@ -11,7 +11,6 @@ var runEngine = false;
 
 var level;
 var elements = [];
-var undoneElements = [];
 var helper = new Helper();
 var numberOfBeams = 0;
 var constructionHistory = [];
@@ -27,17 +26,21 @@ function setup() {
   level.setup();
 
   numberOfBeams = 0;
-
-  var undo = document.getElementsByName('undo-button').item(0);
-  undo.setAttribute('disabled', true);
-
-  var redo = document.getElementsByName('redo-button').item(0);
-  redo.setAttribute('disabled', true);
 }
 
 function testConstruction() {
   runEngine = true;
   level.doCatastrophe();
+}
+
+function undo() {
+  if (constructionHistory.length == 0) {
+    return;
+  }
+  numberOfBeams--;
+  document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
+  constructionHistory.pop();
+  construct();
 }
 
 function construct() {
@@ -249,37 +252,6 @@ function keyPressed() {
   //console.log(key + ' pressed');
 }
 
-function undoConstruction() {
-
-  if (elements.length >= 0) {
-    var previousAnchor = elements.pop();
-    var previousBeam = elements.pop();
-    undoneElements.push(previousBeam); // LIFO 
-    undoneElements.push(previousAnchor);
-    World.remove(world, previousAnchor);
-    World.remove(world, previousBeam);
-    numberOfBeams--;
-    document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
-  }
-}
-
-function redoConstruction() {
-
-  if (undoneElements.length >= 0) {
-    var last = undoneElements[undoneElements.length - 1];
-    var secondlast = undoneElements[undoneElements.length - 2];
-    elements.push(last);
-    elements.push(secondlast);
-    World.add(world, last);
-    World.add(world, secondlast);
-    undoneElements.pop();
-    undoneElements.pop();
-    numberOfBeams++;
-    document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
-  }
-}
-
-
 function draw() {
   if (runEngine) {
     Engine.update(engine);
@@ -307,30 +279,11 @@ function draw() {
     drawingLegal ? stroke('green') : stroke('red');
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
   }
-
-  var undobutton = document.getElementsByName('undo-button').item(0);
-  var redobutton = document.getElementsByName('redo-button').item(0);
-
-  if (elements.length > 0) {
-    undobutton.removeAttribute('disabled');
-  }
-  else {
-    undobutton.setAttribute('disabled', true);
-  }
-
-  if (undoneElements.length > 0) {
-    redobutton.removeAttribute('disabled');
-  }
-  else {
-    redobutton.setAttribute('disabled', true);
-  }
 }
 
 function clearAll() {
   runEngine = false;
   elements.forEach(item => item.remove());
-  undoneElements.forEach(item => item.remove());
-  undoneElements = [];
   elements = [];
   constructionHistory = [];
   numberOfBeams = 0;
