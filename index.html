@@ -34,6 +34,10 @@
     .badge-warning {
       background-color: #f89406;
     }
+
+    .label-btn {
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -47,31 +51,34 @@
       <div class="col-xs-2">
         <h3>Constructeer</h3>
       </div>
-      <div class="col-xs-3" style="padding-top: 15px;">
-        <button type="button" name="undo-button" class="btn btn-warning"
-          onclick="undoConstruction()">
-          <span class="glyphicon glyphicon-arrow-left"></span> undo
-        </button>
-        <button type="button" name="redo-button" class="btn btn-warning"
-          onclick="redoConstruction()">
-          <span class="glyphicon glyphicon-arrow-right"></span> redo
-        </button>
-        <div style="display: inline-block;">Beams
-          <span id="beamsToGo" class="badge badge-warning">0</span>
-          </span>
-        </div>
-      </div>
-      <div class="col-xs-1">
-        <div style="padding-top: 23px;" class="pull-right">
-          <span>Level</span>
-        </div>
-      </div>
-      <div class="col-xs-3">
+      <div class="col-xs-4">
         <div class="btn-group btn-group-sm" role="group" aria-label="..."
           style="padding-top: 20px;">
+          <a href="#" role="button" class="btn btn-default btn-sm label-btn"
+            aria-disabled="true">
+            <strong>Level</strong>
+          </a>
           <button type="button" class="btn btn-success" onclick="loadLevel01()">Meteor</button>
           <button type="button" class="btn btn-success" onclick="loadLevel02()">Avalanche</button>
           <button type="button" class="btn btn-success" onclick="loadLevel03()">Avalanche 2</button>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="btn-group btn-group" role="group" aria-label="..."
+          style="padding-top: 16px;">
+          <a href="#" role="button" class="btn btn-default label-btn" aria-disabled="true">
+            Beams
+            <span id="beamsToGo" class="badge badge-warning">0</span>
+          </a>
+          </span>
+          <button type="button" name="undo-button" class="btn btn-warning"
+            onclick="undoConstruction()">
+            <span class="glyphicon glyphicon-arrow-left"></span> undo
+          </button>
+          <button type="button" name="redo-button" class="btn btn-warning"
+            onclick="redoConstruction()">
+            <span class="glyphicon glyphicon-arrow-right"></span> redo
+          </button>
         </div>
       </div>
       <div class="col-xs-2" style="padding-top: 5px;">
