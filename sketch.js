@@ -25,14 +25,16 @@ function setup() {
   level = new Level01(this.width, this.height, 10);
   level.setup();
 
+  numberOfBeams = 0;
+
   var undo = document.getElementsByName('undo-button').item(0);
   undo.setAttribute('disabled', true);
 
   var redo = document.getElementsByName('redo-button').item(0);
   redo.setAttribute('disabled', true);
 
-  var counterbutton = document.getElementsByName('beams-left-button').item(0);
-  counterbutton.innerHTML = level.maxBeams;
+  // var counterbutton = document.getElementsByName('beams-left-button').item(0);
+  // counterbutton.innerHTML = level.maxBeams;
 }
 
 function testConstruction() {
@@ -104,14 +106,6 @@ var drawingLegal = false;
 var bodyA = null;
 
 function mousePressed() {
-
-  if(numberOfBeams >= level.maxBeams) {
-    console.log("MOUSEPRESS - maxbeams reached, current nr of beams:", numberOfBeams);
-    drawing = false;
-    drawingLegal = false;
-    alert("You have reached the maximum allowed number of beams for this level! Please undo and try again.");
-    return false;
-  }
 
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
   var joints = elements.filter(anchor => {
@@ -241,15 +235,18 @@ function draw() {
   level.show();
   elements.forEach(item => item.show());
 
+  //console.log("current nr of beams:", numberOfBeams);
+
 
   if (drawing == true) {
 
-    // if(numberOfBeams >= level.maxBeams) {
-    //   console.log("maxbeams reached, current nr of beams:", numberOfBeams);
-    //   drawing = false;
-    //   drawingLegal = false;
-    //   return false;
-    // }
+    if(numberOfBeams >= level.maxBeams) {
+      //console.log("maxbeams reached, current nr of beams:", numberOfBeams);
+      drawing = false;
+      drawingLegal = false;
+      alert("You have reached the maximum allowed number of beams for this level! Please test your construction or undo and try again.");
+      return false;
+    }
 
     stroke('red');
     strokeWeight(3);
@@ -281,6 +278,7 @@ function clearAll() {
   undoneElements.forEach(item => item.remove());
   undoneElements = [];
   elements = [];
+  numberOfBeams = 0;
   level.clear();
 }
 
