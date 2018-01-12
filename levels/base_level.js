@@ -42,12 +42,15 @@ class BaseLevel {
       element.remove();
     });
 
+    this.ground = [];
+    this.anchors = [];
+    this.clearOthers();
+  }
+
+  clearOthers() {
     this.others.forEach(element => {
       element.remove();
     });
-
-    this.ground = [];
-    this.anchors = [];
     this.others = [];
   }
 

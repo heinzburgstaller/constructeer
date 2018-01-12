@@ -31,10 +31,6 @@
   <script language="javascript" type="text/javascript" src="levels/level03.js"></script>
 
   <style>
-    .badge-warning {
-      background-color: #f89406;
-    }
-
     .label-btn {
       pointer-events: none;
     }
@@ -81,11 +77,14 @@
           </button>
         </div>
       </div>
-      <div class="col-xs-2" style="padding-top: 5px;">
-        <button type="button" class="btn btn-primary btn-lg pull-right"
-          onclick="testConstruction()">
-          <span class="glyphicon glyphicon-play-circle"></span>
-          Test construction</button>
+      <div class="col-xs-2" style="padding-top: 16px;" >
+        <div class="btn-group btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-danger" onclick="construct()">
+                Construct</button>
+          <button type="button" class="btn btn-primary" onclick="testConstruction()">
+            <span class="glyphicon glyphicon-play-circle"></span>
+            Run</button>
+        </div>
       </div>
     </div>
     <div class="row">

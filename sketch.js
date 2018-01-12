@@ -13,7 +13,8 @@ var level;
 var elements = [];
 var undoneElements = [];
 var helper = new Helper();
-var numberOfBeams = 0; 
+var numberOfBeams = 0;
+var constructionHistory = [];
 
 function setup() {
   var p5Canvas = createCanvas(1170, 700);
@@ -37,6 +38,14 @@ function setup() {
 function testConstruction() {
   runEngine = true;
   level.doCatastrophe();
+}
+
+function construct() {
+  runEngine = false;
+  elements.forEach(item => item.remove());
+  elements = [];
+  level.clearOthers();
+  redrawFromHistory();
 }
 
 function loadLevel01() {
@@ -103,7 +112,6 @@ var drawingLegal = false;
 var bodyA = null;
 
 function mousePressed() {
-
   var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
   var joints = elements.filter(anchor => {
     return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
@@ -120,23 +128,36 @@ function mousePressed() {
   }
 }
 
+function getJointPerPoint(x, y) {
+  var anchors = level.anchors.filter(anchor => anchor.pointIsIn(x, y));
+  var joints = elements.filter(anchor => {
+    return anchor instanceof Joint && anchor.pointIsIn(x, y)
+  });
+  var items = anchors.concat(joints);
+  if (items.length >= 1) {
+    return {
+      x: items[0].body.position.x,
+      y: items[0].body.position.y,
+      body: items[0].body
+    };
+  }
+
+  return null;
+}
+
 function mouseReleased() {
 
-  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false || drawingLegal == false) {
+  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false || drawingLegal == false || runEngine == true) {
     drawing = false;
     return;
   }
 
   var bodyC = null;
-  var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
-  var joints = elements.filter(anchor => {
-    return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
-  });
-  var items = anchors.concat(joints);
-  if (items.length >= 1) {
-    mouseX = items[0].body.position.x;
-    mouseY = items[0].body.position.y;
-    bodyC = items[0].body;
+  var jointPerPoint = getJointPerPoint(mouseX, mouseY);
+  if (jointPerPoint !== null) {
+    mouseX = jointPerPoint.x;
+    mouseY = jointPerPoint.y;
+    bodyC = jointPerPoint.body;
   }
 
   drawing = false;
@@ -154,9 +175,14 @@ function mouseReleased() {
     elements.push(j);
   }
 
+  createJointConstraints(bodyA, sb.body, bodyC, calc, sorted.orient);
+  addToHistory(bodyA.position.x, bodyA.position.y, calc, sorted.orient, mouseX, mouseY);
+}
+
+function createJointConstraints(bodyA, bodyB, bodyC, calc, orient) {
   var c1 = Constraint.create({
     bodyA: bodyA,
-    bodyB: sb.body,
+    bodyB: bodyB,
     stiffness: 0.92,
     length: 0.0,
     pointA: {
@@ -164,18 +190,18 @@ function mouseReleased() {
       y: 0
     },
     pointB: {
-      x: sorted.orient == 'down' ? -calc.a / 2 : calc.a / 2,
-      y: sorted.orient == 'down' ? -calc.b / 2 : calc.b / 2
+      x: orient == 'down' ? -calc.a / 2 : calc.a / 2,
+      y: orient == 'down' ? -calc.b / 2 : calc.b / 2
     }
   });
   var c2 = Constraint.create({
-    bodyA: sb.body,
+    bodyA: bodyB,
     bodyB: bodyC,
     stiffness: 0.92,
     length: 0,
     pointA: {
-      x: sorted.orient == 'down' ? calc.a / 2 : -calc.a / 2,
-      y: sorted.orient == 'down' ? calc.b / 2 : -calc.b / 2
+      x: orient == 'down' ? calc.a / 2 : -calc.a / 2,
+      y: orient == 'down' ? calc.b / 2 : -calc.b / 2
     },
     pointB: {
       x: 0,
@@ -186,13 +212,46 @@ function mouseReleased() {
   World.add(world, c2);
 }
 
+function redrawFromHistory() {
+  constructionHistory.forEach(historyElement => {
+    var calc = historyElement.calc;
+    var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
+    elements.push(sb);
+
+    var jointA = getJointPerPoint(historyElement.bodyAx, historyElement.bodyAy);
+
+    var bodyC = null;
+    var jointPerPoint = getJointPerPoint(historyElement.jointX, historyElement.jointY);
+    if (jointPerPoint !== null) {
+      bodyC = jointPerPoint.body;
+    } else {
+      var j = new Joint(historyElement.jointX, historyElement.jointY, 12);
+      bodyC = j.body;
+      elements.push(j);
+    }
+
+    createJointConstraints(jointA.body, sb.body, bodyC, calc, historyElement.orient);
+  });
+}
+
+function addToHistory(bodyAx, bodyAy, calc, orient, jointX, jointY) {
+  constructionHistory.push({
+    bodyAx: bodyAx,
+    bodyAy: bodyAy,
+    calc: calc,
+    orient: orient,
+    jointX: jointX,
+    jointY: jointY
+  });
+}
+
 function keyPressed() {
   //console.log(key + ' pressed');
 }
 
 function undoConstruction() {
 
-  if(elements.length >= 0) {
+  if (elements.length >= 0) {
     var previousAnchor = elements.pop();
     var previousBeam = elements.pop();
     undoneElements.push(previousBeam); // LIFO 
@@ -206,13 +265,13 @@ function undoConstruction() {
 
 function redoConstruction() {
 
-  if(undoneElements.length >= 0) { 
+  if (undoneElements.length >= 0) {
     var last = undoneElements[undoneElements.length - 1];
     var secondlast = undoneElements[undoneElements.length - 2];
     elements.push(last);
     elements.push(secondlast);
     World.add(world, last);
-    World.add(world, secondlast);  
+    World.add(world, secondlast);
     undoneElements.pop();
     undoneElements.pop();
     numberOfBeams++;
@@ -233,9 +292,9 @@ function draw() {
   //console.log("current nr of beams:", numberOfBeams);
 
 
-  if (drawing == true) {
+  if (drawing == true && runEngine == false) {
 
-    if(numberOfBeams >= level.maxBeams) {
+    if (numberOfBeams >= level.maxBeams) {
       //console.log("maxbeams reached, current nr of beams:", numberOfBeams);
       drawing = false;
       drawingLegal = false;
@@ -252,14 +311,14 @@ function draw() {
   var undobutton = document.getElementsByName('undo-button').item(0);
   var redobutton = document.getElementsByName('redo-button').item(0);
 
-  if(elements.length > 0) {
+  if (elements.length > 0) {
     undobutton.removeAttribute('disabled');
   }
   else {
     undobutton.setAttribute('disabled', true);
   }
 
-  if(undoneElements.length > 0) {
+  if (undoneElements.length > 0) {
     redobutton.removeAttribute('disabled');
   }
   else {
@@ -273,6 +332,7 @@ function clearAll() {
   undoneElements.forEach(item => item.remove());
   undoneElements = [];
   elements = [];
+  constructionHistory = [];
   numberOfBeams = 0;
   level.clear();
 }
