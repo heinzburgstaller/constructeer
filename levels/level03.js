@@ -1,8 +1,7 @@
 class Level03 extends BaseLevel {
 
   constructor(width, height) {
-    super(width, height);
-    this.maxBeams = 10;
+    super(width, height, 40);
   }
 
   setup() {
@@ -11,8 +10,6 @@ class Level03 extends BaseLevel {
     this.anchors.push(new Joint(this.width * 0.90, this.height - 50 - 12, 12, true));
     this.anchors.push(new Joint(this.width * 0.75, this.height - 50 - 12, 12, true));
     this.anchors.push(new Joint(this.width * 0.60, this.height - 50 - 12, 12, true));
-    var counterbutton = document.getElementsByName('beams-left-button').item(0);
-    counterbutton.innerHTML = this.maxBeams;
   }
 
   show() {

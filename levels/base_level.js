@@ -1,11 +1,13 @@
 class BaseLevel {
 
-  constructor(width, height) {
+  constructor(width, height, maxBeams = 50) {
     this.width = width;
     this.height = height;
     this.ground = [];
     this.anchors = [];
     this.others = [];
+    this.maxBeams = maxBeams;
+    document.getElementById('beamsToGo').innerHTML = this.maxBeams;
   }
 
   setup() {

@@ -32,9 +32,6 @@ function setup() {
 
   var redo = document.getElementsByName('redo-button').item(0);
   redo.setAttribute('disabled', true);
-
-  // var counterbutton = document.getElementsByName('beams-left-button').item(0);
-  // counterbutton.innerHTML = level.maxBeams;
 }
 
 function testConstruction() {
@@ -148,8 +145,7 @@ function mouseReleased() {
 
   var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
   numberOfBeams++;
-  var counterbutton = document.getElementsByName('beams-left-button').item(0);
-  counterbutton.innerHTML = level.maxBeams - numberOfBeams;
+  document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
   elements.push(sb);
 
   if (bodyC === null) {
@@ -204,8 +200,7 @@ function undoConstruction() {
     World.remove(world, previousAnchor);
     World.remove(world, previousBeam);
     numberOfBeams--;
-    document.getElementsByName('beams-left-button').item(0).innerHTML = level.maxBeams - numberOfBeams;
-
+    document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
   }
 }
 
@@ -221,7 +216,7 @@ function redoConstruction() {
     undoneElements.pop();
     undoneElements.pop();
     numberOfBeams++;
-    document.getElementsByName('beams-left-button').item(0).innerHTML = level.maxBeams - numberOfBeams;
+    document.getElementById('beamsToGo').innerHTML = level.maxBeams - numberOfBeams;
   }
 }
 
