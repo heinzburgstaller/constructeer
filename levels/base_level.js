@@ -1,12 +1,13 @@
 class BaseLevel {
 
-  constructor(width, height, maxBeams = 50) {
+  constructor(width, height, maxBeams = 50, bgImage = null) {
     this.width = width;
     this.height = height;
     this.ground = [];
     this.anchors = [];
     this.others = [];
     this.maxBeams = maxBeams;
+    this.bg = bgImage != null ? loadImage(bgImage) : null;
     document.getElementById('beamsToGo').innerHTML = this.maxBeams;
   }
 
@@ -15,7 +16,11 @@ class BaseLevel {
   }
 
   show() {
-    background('#bce6ff'); // sky
+    if (this.bg === null) {
+      background('#bce6ff');
+    } else {
+      background(this.bg);
+    }
     this.ground.forEach(element => {
       element.show();
     });

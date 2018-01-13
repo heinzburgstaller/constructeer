@@ -20,7 +20,7 @@ class Joint extends BaseElement {
     strokeWeight(1);
     stroke('#202021');
     if (this.body.isStatic) {
-      fill('#705114');
+      fill('#ffbc2d');
     } else {
       fill('#7c7462');
     }

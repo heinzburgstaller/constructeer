@@ -291,7 +291,7 @@ function clearAll() {
 }
 
 function testBreakage() {
-  var breakageAngularSpeed = 0.1;
+  var breakageAngularSpeed = 0.11;
   var brokeConstraints = world.constraints.filter(c => {
     return c.bodyA.angularSpeed > breakageAngularSpeed || c.bodyB.angularSpeed > breakageAngularSpeed
   });

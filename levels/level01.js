@@ -1,8 +1,9 @@
 class Level01 extends BaseLevel {
 
   constructor(width, height) {
-    super(width, height, 25);
+    super(width, height, 25, 'assets/background/b3.png');
   }
+
 
   setup() {
     this.ground.push(new Ground(this.width / 2, this.height - 50 / 2, width, 50));

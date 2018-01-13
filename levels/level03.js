@@ -1,7 +1,7 @@
 class Level03 extends BaseLevel {
 
   constructor(width, height) {
-    super(width, height, 40);
+    super(width, height, 40, 'assets/background/b2.jpg');
   }
 
   setup() {
