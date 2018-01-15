@@ -7,7 +7,7 @@ class BaseLevel {
     this.anchors = [];
     this.others = [];
     this.maxBeams = maxBeams;
-    this.bg = bgImage != null ? loadImage(bgImage) : null;
+    this.bg = null; // bgImage != null ? loadImage(bgImage) : null;
     document.getElementById('beamsToGo').innerHTML = this.maxBeams;
   }
 
