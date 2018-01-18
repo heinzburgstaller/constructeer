@@ -9,7 +9,7 @@ var engine;
 var world;
 var runEngine = false;
 
-var level;
+var level = null;
 var elements = [];
 var helper = new Helper();
 var numberOfBeams = 0;
@@ -22,10 +22,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  level = new Level01(this.width, this.height, 10);
-  level.setup();
-
-  numberOfBeams = 0;
+  loadLevel01();
 }
 
 function testConstruction() {
@@ -115,15 +112,11 @@ var drawingLegal = false;
 var bodyA = null;
 
 function mousePressed() {
-  var anchors = level.anchors.filter(anchor => anchor.pointIsIn(mouseX, mouseY));
-  var joints = elements.filter(anchor => {
-    return anchor instanceof Joint && anchor.pointIsIn(mouseX, mouseY)
-  });
-  var items = anchors.concat(joints);
-  if (items.length >= 1) {
-    mousePressedX = items[0].body.position.x;
-    mousePressedY = items[0].body.position.y;
-    bodyA = items[0].body;
+  var jointPerPoint = getJointPerPoint(mouseX, mouseY);
+  if (jointPerPoint !== null) {
+    mousePressedX = jointPerPoint.x;
+    mousePressedY = jointPerPoint.y;
+    bodyA = jointPerPoint.body;
   } else {
     mousePressedX = -1;
     mousePressedY = -1;
@@ -222,9 +215,9 @@ function redrawFromHistory() {
     elements.push(sb);
 
     var jointA = getJointPerPoint(historyElement.bodyAx, historyElement.bodyAy);
-
     var bodyC = null;
     var jointPerPoint = getJointPerPoint(historyElement.jointX, historyElement.jointY);
+
     if (jointPerPoint !== null) {
       bodyC = jointPerPoint.body;
     } else {
@@ -261,20 +254,15 @@ function draw() {
   level.show();
   elements.forEach(item => item.show());
 
-  //console.log("current nr of beams:", numberOfBeams);
-
-
   if (drawing == true && runEngine == false) {
 
     if (numberOfBeams >= level.maxBeams) {
-      //console.log("maxbeams reached, current nr of beams:", numberOfBeams);
       drawing = false;
       drawingLegal = false;
       alert("You have reached the maximum allowed number of beams for this level! Please test your construction or undo and try again.");
-      return false;
+      return;
     }
 
-    stroke('red');
     strokeWeight(3);
     drawingLegal ? stroke('green') : stroke('red');
     line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
@@ -287,7 +275,9 @@ function clearAll() {
   elements = [];
   constructionHistory = [];
   numberOfBeams = 0;
-  level.clear();
+  if (level !== null) {
+    level.clear();
+  }
 }
 
 function testBreakage() {

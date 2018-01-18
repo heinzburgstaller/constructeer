@@ -9,7 +9,7 @@ class BaseElement {
 
   show() {
     var pos = this.body.position;
-    if(pos.y > width + 200) {
+    if (pos.y > width + 200) {
       this.remove();
     }
 
