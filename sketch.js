@@ -87,7 +87,7 @@ function mouseDragged() {
 
     var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
     var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
-    drawingLegal = calc.c > 70 && calc.c <= 250;
+    drawingLegal = calc.c > 60 && calc.c <= 250;
   }
 
   checkMouseOnBody();
