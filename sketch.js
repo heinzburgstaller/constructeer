@@ -18,6 +18,8 @@ var constructionHistory = [];
 function setup() {
   var p5Canvas = createCanvas(1170, 700);
   p5Canvas.parent("canvasContainer");
+  frameRate(50);
+
   engine = Engine.create();
   //engine.constraintIterations = 5;
   world = engine.world;
