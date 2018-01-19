@@ -1,7 +1,7 @@
 class Level01 extends BaseLevel {
 
   constructor(width, height) {
-    super(width, height, 25, 'assets/background/b3.png');
+    super(width, height, 25, ASSETS.IMAGES["b3.png"]);
   }
 
 
