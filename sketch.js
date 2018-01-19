@@ -145,7 +145,8 @@ function getJointPerPoint(x, y) {
 
 function mouseReleased() {
 
-  if (mousePressedX < 0 || mousePressedY < 0 || drawing == false || drawingLegal == false || runEngine == true) {
+  if (mousePressedX < 0 || mousePressedY < 0
+    || drawing == false || drawingLegal == false || runEngine == true) {
     drawing = false;
     return;
   }
@@ -261,7 +262,8 @@ function draw() {
     if (numberOfBeams >= level.maxBeams) {
       drawing = false;
       drawingLegal = false;
-      alert("You have reached the maximum allowed number of beams for this level! Please test your construction or undo and try again.");
+      alert("You have reached the maximum allowed number of beams for this level!"
+        + " Please test your construction or undo and try again.");
       return;
     }
 
