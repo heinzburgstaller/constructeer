@@ -5,6 +5,7 @@ class BaseLevel {
     this.height = height;
     this.ground = [];
     this.anchors = [];
+    this.humans = [];
     this.others = [];
     this.maxBeams = maxBeams;
     this.bg = bgImage != null ? loadImage(bgImage) : null;
@@ -22,6 +23,10 @@ class BaseLevel {
       background(this.bg);
     }
     this.ground.forEach(element => {
+      element.show();
+    });
+
+    this.humans.forEach(element => {
       element.show();
     });
 

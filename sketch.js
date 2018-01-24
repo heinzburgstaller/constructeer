@@ -68,6 +68,12 @@ function loadLevel03() {
   level.setup();
 }
 
+function loadLevel04() {
+  clearAll();
+  level = new Level04(this.width, this.height);
+  level.setup();
+}
+
 function checkMouseOnBody() {
   level.anchors.forEach(item => {
     item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
@@ -291,5 +297,3 @@ function testBreakage() {
   });
   brokeConstraints.forEach(c => World.remove(world, c));
 }
-
-
