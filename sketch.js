@@ -14,11 +14,14 @@ var elements = [];
 var helper = new Helper();
 var numberOfBeams = 0;
 var constructionHistory = [];
+var gridIsOn = false;
+var gridSize = 100;
 
 function setup() {
-  var p5Canvas = createCanvas(1170, 700);
+  var p5Canvas = createCanvas(1100, 600);
   p5Canvas.parent("canvasContainer");
   frameRate(50);
+  gridIsOn = false;
 
   engine = Engine.create();
   //engine.constraintIterations = 5;
@@ -143,6 +146,22 @@ function getJointPerPoint(x, y) {
   return null;
 }
 
+function getGridCoords(mouseX, mouseY)
+{
+    //console.log("gridIsOn:" + gridIsOn);
+    if(gridIsOn)
+      return {
+        x: (Math.round(mouseX/gridSize)*gridSize),
+        y: (Math.round(mouseY/gridSize)*gridSize)
+      };
+    else
+      return {
+        x: mouseX,
+        y: mouseY
+      }
+}
+
+
 function mouseReleased() {
 
   if (mousePressedX < 0 || mousePressedY < 0
@@ -151,16 +170,19 @@ function mouseReleased() {
     return;
   }
 
+
+  mouse = getGridCoords(mouseX, mouseY);
+
   var bodyC = null;
-  var jointPerPoint = getJointPerPoint(mouseX, mouseY);
+  var jointPerPoint = getJointPerPoint(mouse.x, mouse.y);
   if (jointPerPoint !== null) {
-    mouseX = jointPerPoint.x;
-    mouseY = jointPerPoint.y;
+    mouse.x = jointPerPoint.x;
+    mouse.y = jointPerPoint.y;
     bodyC = jointPerPoint.body;
   }
 
   drawing = false;
-  var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
+  var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouse.x, mouse.y);
   var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
 
   var sb = new SteelBeam(calc.x, calc.y, calc.c, 15, calc.angle);
@@ -169,13 +191,13 @@ function mouseReleased() {
   elements.push(sb);
 
   if (bodyC === null) {
-    var j = new Joint(mouseX, mouseY, 12);
+    var j = new Joint(mouse.x, mouse.y, 12);
     bodyC = j.body;
     elements.push(j);
   }
 
   createJointConstraints(bodyA, sb.body, bodyC, calc, sorted.orient);
-  addToHistory(bodyA.position.x, bodyA.position.y, calc, sorted.orient, mouseX, mouseY);
+  addToHistory(bodyA.position.x, bodyA.position.y, calc, sorted.orient, mouse.x, mouse.y);
 }
 
 function createJointConstraints(bodyA, bodyB, bodyC, calc, orient) {
@@ -257,6 +279,28 @@ function draw() {
   level.show();
   elements.forEach(item => item.show());
 
+  gridIsOn = keyIsDown(SHIFT);
+  if(gridIsOn === undefined) gridIsOn = false;
+
+  if(gridIsOn)
+  {
+    var lines_x = level.width/gridSize;
+    var lines_y = level.height/gridSize;
+    for(var lineNr = 0; lineNr < lines_x; lineNr++)
+    {
+      strokeWeight(1);
+      stroke('black');
+      line(lineNr*gridSize, 0, lineNr*gridSize, level.height);
+    }
+    for(var lineNr = 0; lineNr < lines_y; lineNr++)
+    {
+      strokeWeight(1);
+      stroke('black');
+      line(0, lineNr*gridSize, level.width, lineNr*gridSize);
+    }
+  }
+
+
   if (drawing == true && runEngine == false) {
 
     if (numberOfBeams >= level.maxBeams) {
@@ -269,7 +313,8 @@ function draw() {
 
     strokeWeight(3);
     drawingLegal ? stroke('green') : stroke('red');
-    line(mousePressedX, mousePressedY, mouseDraggedX, mouseDraggedY);
+    grid_mouseDragged = getGridCoords(mouseDraggedX, mouseDraggedY);
+    line(mousePressedX, mousePressedY, grid_mouseDragged.x, grid_mouseDragged.y);
   }
 }
 
@@ -291,5 +336,3 @@ function testBreakage() {
   });
   brokeConstraints.forEach(c => World.remove(world, c));
 }
-
-
