@@ -15,10 +15,10 @@ var helper = new Helper();
 var numberOfBeams = 0;
 var constructionHistory = [];
 var gridIsOn = false;
-var gridSize = 100;
+var gridSize = 50;
 
 function setup() {
-  var p5Canvas = createCanvas(1100, 600);
+  var p5Canvas = createCanvas(1200, 650);
   p5Canvas.parent("canvasContainer");
   frameRate(50);
   gridIsOn = false;
