@@ -1,6 +1,6 @@
 class Human {
 
-  constructor(x, y, h, a) {
+  constructor(x, y, h, a = 0) {
 
     this.x = x;
     this.y = y;
@@ -102,8 +102,8 @@ class Human {
     this.torso = Bodies.rectangle(x, y-11*this.h/20, this.torso_options.w, this.torso_options.h, this.torso_options);
     this.left_arm = Bodies.rectangle(x-2*this.h/10, y-3*this.h/5, this.left_arm_options.w, this.left_arm_options.h, this.left_arm_options);
     this.right_arm = Bodies.rectangle(x+2*this.h/10, y-3*this.h/5, this.right_arm_options.w, this.right_arm_options.h, this.right_arm_options);
-    this.left_foot = Bodies.rectangle(x+this.h/10, y-this.h/5, this.left_foot_options.w, this.left_foot_options.h, this.left_foot_options);
-    this.right_foot = Bodies.rectangle(x-this.h/10, y-this.h/5, this.right_foot_options.w, this.right_foot_options.h, this.right_foot_options);
+    this.left_foot = Bodies.rectangle(x-this.h/10, y-this.h/5, this.left_foot_options.w, this.left_foot_options.h, this.left_foot_options);
+    this.right_foot = Bodies.rectangle(x+this.h/10, y-this.h/5, this.right_foot_options.w, this.right_foot_options.h, this.right_foot_options);
 
     World.add(world, this.head);
     World.add(world, this.torso);
@@ -119,6 +119,7 @@ class Human {
   createConstraints(){
     var headTorso1 = Constraint.create({
         bodyA: this.head,
+        length: 0,
         pointA: {
             x: -this.head_options.w/4,
             y: this.head_options.h/2
@@ -132,6 +133,7 @@ class Human {
     });
     var headTorso2 = Constraint.create({
         bodyA: this.head,
+        length: 0,
         pointA: {
             x: this.head_options.w/4,
             y: this.head_options.h/2
@@ -146,70 +148,121 @@ class Human {
 
     var LeftArmTorso1 = Constraint.create({
         bodyA: this.left_arm,
+        length: 0,
         pointA: {
             x: 0,
-            y: this.left_arm_options.h/2
+            y: -this.left_arm_options.h/2
         },
         pointB: {
-            x: -this.torso_options.w/2,
-            y: -this.torso_options.h/2
+            x: -this.torso_options.w/1.6,
+            y: -this.torso_options.h/1.6
         },
         bodyB: this.torso,
-        stiffness: 0.9
+        stiffness: 0.02
     });
 
-    var LeftArmTorso2 = Constraint.create({
-        bodyA: this.torso,
+    var RightArmTorso1 = Constraint.create({
+        bodyA: this.right_arm,
+        length: 0,
         pointA: {
-            x: -this.torso_options.w/2,
-            y: -this.torso_options.h/2
+            x: 0,
+            y: -this.right_arm_options.h/2
         },
         pointB: {
-            x: +this.h/20,
-            y: this.left_arm_options.h/2
+            x: +this.torso_options.w/1.6,
+            y: -this.torso_options.h/1.6
         },
-        bodyB: this.left_arm,
-        stiffness: 1
+        bodyB: this.torso,
+        stiffness: 0.02
     });
 
     var LeftFootTorso1 = Constraint.create({
         bodyA: this.torso,
+        length: 0,
         pointA: {
-            x: -this.torso_options.w/2,
-            y: this.torso_options.h/2
+            x: -this.h/10,
+            y: (11*this.h/20 - this.left_foot_options.h)
         },
         pointB: {
             x: 0,
-            y: this.left_foot_options.h/2
+            y: -this.left_foot_options.h/2
         },
         bodyB: this.left_foot,
-        stiffness: 1
+        stiffness: 0.6
+    });
+
+    var LeftFootTorso2 = Constraint.create({
+        bodyA: this.torso,
+        length: 0,
+        pointA: {
+            x: -this.h/10,
+            y: (11*this.h/20 - this.left_foot_options.h)+10
+        },
+        pointB: {
+            x: 0,
+            y: -this.left_foot_options.h/2 + 10
+        },
+        bodyB: this.left_foot,
+        stiffness: 0.6
+    });
+
+    var RightFootTorso1 = Constraint.create({
+        bodyA: this.torso,
+        length: 0,
+        pointA: {
+            x: +this.h/10,
+            y: (11*this.h/20 - this.left_foot_options.h)
+        },
+        pointB: {
+            x: 0,
+            y: -this.left_foot_options.h/2
+        },
+        bodyB: this.right_foot,
+        stiffness: 0.6
+    });
+
+    var RightFootTorso2 = Constraint.create({
+        bodyA: this.torso,
+        length: 0,
+        pointA: {
+            x: +this.h/10,
+            y:(11*this.h/20 - this.left_foot_options.h) + 10
+        },
+        pointB: {
+            x: 0,
+            y: -this.left_foot_options.h/2 + 10
+        },
+        bodyB: this.right_foot,
+        stiffness: 0.6
     });
 
     World.add(world, headTorso1);
     World.add(world, headTorso2);
-    //World.add(world, LeftArmTorso1);
-    //World.add(world, LeftArmTorso2);
+    World.add(world, LeftArmTorso1);
+    World.add(world, RightArmTorso1);
     World.add(world, LeftFootTorso1);
+    World.add(world, LeftFootTorso2);
+    World.add(world, RightFootTorso1);
+    World.add(world, RightFootTorso2);
   }
 
   show() {
-    this.drawBodypart(this.head, this.head_options);
-    this.drawBodypart(this.right_arm, this.right_arm_options);
-    this.drawBodypart(this.left_foot, this.left_foot_options);
-    this.drawBodypart(this.right_foot, this.right_foot_options);
-    this.drawBodypart(this.torso, this.torso_options);
-    this.drawBodypart(this.left_arm, this.left_arm_options);
+    this.drawBodypart(this.head, this.head_options, '#d7a43c');
+    this.drawBodypart(this.right_arm, this.right_arm_options, '#151504');
+    this.drawBodypart(this.left_foot, this.left_foot_options, '#d73c99');
+    this.drawBodypart(this.right_foot, this.right_foot_options, '#3c3cd7');
+    this.drawBodypart(this.torso, this.torso_options, '#d73c3c');
+    this.drawBodypart(this.left_arm, this.left_arm_options, '#d7d73c');
   }
 
-  drawBodypart(part, options){
+  drawBodypart(part, options, color){
     push();
     translate(part.position.x, part.position.y);
     rotate(part.angle);
     rectMode(CENTER);
     strokeWeight(1);
     stroke('#202021');
-    fill('#4e4e51');
+    fill(color);
     rect(0, 0, options.w, options.h,this.h/10);
     pop();
   }
