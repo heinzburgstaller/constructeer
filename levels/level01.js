@@ -6,9 +6,9 @@ class Level01 extends BaseLevel {
 
 
   setup() {
-    this.ground.push(new Ground(this.width / 2, this.height - 50 / 2, width, 50));
-    this.anchors.push(new Joint(this.width * 0.30, this.height - 50 - 12, 12, true));
-    this.anchors.push(new Joint(this.width * 0.70, this.height - 50 - 12, 12, true));
+    this.ground.push(new Ground(this.width / 2, this.height - 100 / 2, width, 100));
+    this.anchors.push(new Joint(this.width * (0.30 * 10 / 11), this.height - 100, 12, true));
+    this.anchors.push(new Joint(this.width * (0.70 * 10 / 11), this.height - 100, 12, true));
   }
 
   show() {
