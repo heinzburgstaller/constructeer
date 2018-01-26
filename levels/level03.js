@@ -1,7 +1,7 @@
 class Level03 extends BaseLevel {
 
-  constructor(width, height) {
-    super(width, height, 40, ASSETS.IMAGES["b2.jpg"]);
+  constructor(width, height, hitCallback) {
+    super(width, height, hitCallback, 40, ASSETS.IMAGES["b2.jpg"]);
   }
 
   setup() {

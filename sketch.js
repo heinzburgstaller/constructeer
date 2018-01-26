@@ -57,19 +57,19 @@ function construct() {
 
 function loadLevel01() {
   clearAll();
-  level = new Level01(this.width, this.height);
+  level = new Level01(this.width, this.height, this.bodyHit);
   level.setup();
 }
 
 function loadLevel02() {
   clearAll();
-  level = new Level02(this.width, this.height);
+  level = new Level02(this.width, this.height, this.bodyHit);
   level.setup();
 }
 
 function loadLevel03() {
   clearAll();
-  level = new Level03(this.width, this.height);
+  level = new Level03(this.width, this.height, this.bodyHit);
   level.setup();
 }
 
