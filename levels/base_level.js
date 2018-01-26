@@ -15,6 +15,16 @@ class BaseLevel {
 
   }
 
+  pointIsInGround(x, y) {
+    var isIn = false;
+    this.ground.forEach(g => {
+      if (g.pointIsIn(x, y)) {
+        isIn = true;
+      }
+    });
+    return isIn;
+  }
+
   show() {
     if (this.bg === null) {
       background('#bce6ff');

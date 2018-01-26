@@ -93,6 +93,10 @@ function mouseDragged() {
     var sorted = helper.sortTwoPoints(mousePressedX, mousePressedY, mouseX, mouseY);
     var calc = helper.doBasicCalculations(sorted.firstPoint, sorted.secondPoint);
     drawingLegal = calc.c > 60 && calc.c <= 250;
+
+    if (level.pointIsInGround(mouseDraggedX, mouseDraggedY)) {
+      drawingLegal = false;
+    }
   }
 
   checkMouseOnBody();
@@ -146,19 +150,18 @@ function getJointPerPoint(x, y) {
   return null;
 }
 
-function getGridCoords(mouseX, mouseY)
-{
-    //console.log("gridIsOn:" + gridIsOn);
-    if(gridIsOn)
-      return {
-        x: (Math.round(mouseX/gridSize)*gridSize),
-        y: (Math.round(mouseY/gridSize)*gridSize)
-      };
-    else
-      return {
-        x: mouseX,
-        y: mouseY
-      }
+function getGridCoords(mouseX, mouseY) {
+  //console.log("gridIsOn:" + gridIsOn);
+  if (gridIsOn)
+    return {
+      x: (Math.round(mouseX / gridSize) * gridSize),
+      y: (Math.round(mouseY / gridSize) * gridSize)
+    };
+  else
+    return {
+      x: mouseX,
+      y: mouseY
+    }
 }
 
 
@@ -280,23 +283,22 @@ function draw() {
   elements.forEach(item => item.show());
 
   gridIsOn = keyIsDown(SHIFT);
-  if(gridIsOn === undefined) gridIsOn = false;
+  if (gridIsOn === undefined) {
+    gridIsOn = false;
+  }
 
-  if(gridIsOn)
-  {
-    var lines_x = level.width/gridSize;
-    var lines_y = level.height/gridSize;
-    for(var lineNr = 0; lineNr < lines_x; lineNr++)
-    {
+  if (gridIsOn) {
+    var lines_x = level.width / gridSize;
+    var lines_y = level.height / gridSize;
+    for (var lineNr = 0; lineNr < lines_x; lineNr++) {
       strokeWeight(1);
       stroke('black');
-      line(lineNr*gridSize, 0, lineNr*gridSize, level.height);
+      line(lineNr * gridSize, 0, lineNr * gridSize, level.height);
     }
-    for(var lineNr = 0; lineNr < lines_y; lineNr++)
-    {
+    for (var lineNr = 0; lineNr < lines_y; lineNr++) {
       strokeWeight(1);
       stroke('black');
-      line(0, lineNr*gridSize, level.width, lineNr*gridSize);
+      line(0, lineNr * gridSize, level.width, lineNr * gridSize);
     }
   }
 
