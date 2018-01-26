@@ -1,18 +1,18 @@
 class Human {
 
-  constructor(x, y, h, a = 0) {
+  constructor(x, y, h, hitCallback) {
 
     this.x = x;
     this.y = y;
     this.h = h;
-    this.a = a;
+    this.hitCallback = hitCallback;
 
     this.head_options = {
       h: this.h/5,
       w: this.h/5,
       friction: 0.95,
       restitution: 0.2,
-      angle: a,
+      angle: 0,
       isStatic: false,
       density: 1.0,
       collisionFilter: {
@@ -27,7 +27,7 @@ class Human {
       w: 2*this.h/6,
       friction: 0.95,
       restitution: 0.2,
-      angle: a,
+      angle: 0,
       isStatic: false,
       density: 1.0,
       collisionFilter: {
@@ -57,7 +57,7 @@ class Human {
       w: this.h/10,
       friction: 0.95,
       restitution: 0.2,
-      angle: a-0.785398,
+      angle: -0.785398,
       isStatic: false,
       density: 1.0,
       collisionFilter: {
@@ -72,7 +72,7 @@ class Human {
       w: this.h/10,
       friction: 0.95,
       restitution: 0.2,
-      angle: a,
+      angle: 0,
       isStatic: false,
       density: 1.0,
       collisionFilter: {
@@ -87,7 +87,7 @@ class Human {
       w: this.h/10,
       friction: 0.95,
       restitution: 0.2,
-      angle: a,
+      angle: 0,
       isStatic: false,
       density: 1.0,
       collisionFilter: {
@@ -114,6 +114,15 @@ class Human {
 
     this.createConstraints();
 
+
+    var collide = (function (pair) {
+      this.hitCallback();
+    }).bind(this);
+    this.head.onCollide(collide);
+  }
+
+  testEvent(){
+    debugger;
   }
 
   createConstraints(){

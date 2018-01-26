@@ -1,4 +1,6 @@
 // module aliases
+Matter.use('matter-collision-events');
+
 var Engine = Matter.Engine,
   // Render = Matter.Render, Not needed rendering is done by p5.js
   World = Matter.World,
@@ -70,7 +72,7 @@ function loadLevel03() {
 
 function loadLevel04() {
   clearAll();
-  level = new Level04(this.width, this.height);
+  level = new Level04(this.width, this.height, this.bodyHit);
   level.setup();
 }
 
@@ -81,6 +83,10 @@ function checkMouseOnBody() {
   elements.forEach(item => {
     item.mouseOnBody = item.pointIsIn(mouseX, mouseY);
   });
+}
+
+function bodyHit(){
+  console.log("Body Hit");
 }
 
 var mouseDraggedX = -1;
