@@ -29,7 +29,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel01();
+  loadLevel('Level01');
 }
 
 function testConstruction() {
@@ -55,27 +55,30 @@ function construct() {
   redrawFromHistory();
 }
 
-function loadLevel01() {
-  clearAll();
-  level = new Level01(this.width, this.height, this.bodyHit);
-  level.setup();
-}
+function loadLevel(levelString = null) {
+  var e = document.getElementById('selectLevel');
+  var levelClassString = levelString === null ? e.options[e.selectedIndex].value : levelString;
 
-function loadLevel02() {
   clearAll();
-  level = new Level02(this.width, this.height, this.bodyHit);
-  level.setup();
-}
 
-function loadLevel03() {
-  clearAll();
-  level = new Level03(this.width, this.height, this.bodyHit);
-  level.setup();
-}
+  switch (levelClassString) {
+    case 'Level01':
+      level = new Level01(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level02':
+      level = new Level02(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level03':
+      level = new Level03(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level04':
+      level = new Level04(this.width, this.height, this.bodyHit);
+      break;
+    default:
+      level = new Level01(this.width, this.height, this.bodyHit);
+      break;
+  }
 
-function loadLevel04() {
-  clearAll();
-  level = new Level04(this.width, this.height, this.bodyHit);
   level.setup();
 }
 
@@ -88,7 +91,7 @@ function checkMouseOnBody() {
   });
 }
 
-function bodyHit(){
+function bodyHit() {
   console.log("Body Hit");
 }
 
