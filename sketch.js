@@ -320,7 +320,6 @@ function draw() {
     }
   }
 
-
   if (drawing == true && runEngine == false) {
 
     if (numberOfBeams >= level.maxBeams) {
