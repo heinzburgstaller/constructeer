@@ -17,6 +17,10 @@ class BaseLevel {
 
   }
 
+  setupHumans() {
+
+  }
+
   pointIsInGround(x, y) {
     var isIn = false;
     this.ground.forEach(g => {
@@ -66,6 +70,7 @@ class BaseLevel {
     this.ground = [];
     this.anchors = [];
     this.clearOthers();
+    this.clearHumans();
   }
 
   clearOthers() {
@@ -73,6 +78,13 @@ class BaseLevel {
       element.remove();
     });
     this.others = [];
+  }
+
+  clearHumans() {
+    this.humans.forEach(human => {
+      human.remove();
+    });
+    this.humans = [];
   }
 
 }

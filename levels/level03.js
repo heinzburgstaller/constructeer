@@ -7,9 +7,14 @@ class Level03 extends BaseLevel {
   setup() {
     this.ground.push(new Ground(this.width / -3, this.height * 0.60, 1000, 1000, PI / 5));
     this.ground.push(new Ground(this.width / 2, this.height - 50 / 2, width, 50));
-    this.anchors.push(new Joint(this.width * 0.90, this.height - 50 - 12, 12, true));
-    this.anchors.push(new Joint(this.width * 0.75, this.height - 50 - 12, 12, true));
-    this.anchors.push(new Joint(this.width * 0.60, this.height - 50 - 12, 12, true));
+    this.anchors.push(new Joint(this.width - (50 * 9), this.height - 50, 12, true));
+    this.anchors.push(new Joint(this.width - (50 * 7), this.height - 50, 12, true));
+    this.anchors.push(new Joint(this.width - (50 * 5), this.height - 50, 12, true));
+  }
+
+  setupHumans() {
+    this.humans.push(new Human(this.width - (50 * 12), this.height - 50, 110, this.humanHitCallback));
+    this.humans.push(new Human(this.width - (50 * 14), this.height - 50, 120, this.humanHitCallback));
   }
 
   show() {

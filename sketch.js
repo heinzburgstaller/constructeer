@@ -52,6 +52,8 @@ function construct() {
   elements.forEach(item => item.remove());
   elements = [];
   level.clearOthers();
+  level.clearHumans();
+  level.setupHumans();
   redrawFromHistory();
 }
 
@@ -80,6 +82,7 @@ function loadLevel(levelString = null) {
   }
 
   level.setup();
+  level.setupHumans();
 }
 
 function checkMouseOnBody() {
