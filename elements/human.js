@@ -114,7 +114,6 @@ class Human {
 
     this.createConstraints();
 
-
     var collide = (function (pair) {
       this.hitCallback();
     }).bind(this);
@@ -283,10 +282,6 @@ class Human {
     fill(color);
     rect(0, 0, options.w, options.h, this.h / 10);
     pop();
-  }
-
-  getAngle() {
-    return this.body.angle;
   }
 
 }
