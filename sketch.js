@@ -29,7 +29,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel('Level01');
+  loadLevel('Level00');
 }
 
 function testConstruction() {
@@ -64,6 +64,9 @@ function loadLevel(levelString = null) {
   clearAll();
 
   switch (levelClassString) {
+    case 'Level00':
+      level = new Level00(this.width, this.height, this.bodyHit);
+      break;
     case 'Level01':
       level = new Level01(this.width, this.height, this.bodyHit);
       break;
