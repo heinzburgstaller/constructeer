@@ -27,6 +27,7 @@ class Level00 extends BaseLevel {
 
   showTutorial() {
     push();
+
     textStyle(BOLD);
     textSize(32);
     text('Welcome to Constructeer!', 30, 30);
@@ -40,13 +41,27 @@ class Level00 extends BaseLevel {
       );
     });
 
-    this.for(1, (progress) => {
-      var p1 = { x: 500, y: 500 };
-      var p2 = { x: 800, y: 400 };
-      var p3 = { x: p1.x + ((p2.x - p1.x) * progress), y: p1.y + ((p2.y - p1.y) * progress) };
+    this.for(2.2, (progress) => {
+      var firstHalf = progress * 2;
+      var secondHalf = (progress - 0.5) * 2;
 
-      line(p1.x, p1.y, p3.x, p3.y);
+      var p1 = { x: 500, y: 500 };
+      var p2 = { x: 600, y: 400 };
+      var p3 = { x: p1.x + ((p2.x - p1.x) * firstHalf), y: p1.y + ((p2.y - p1.y) * firstHalf) };
+
+      if (firstHalf <= 1.0) {
+        line(p1.x, p1.y, p3.x, p3.y);
+        return;
+      }
+
+      var p4 = { x: 700, y: 500 };
+      var p5 = { x: p2.x + ((p4.x - p2.x) * secondHalf), y: p2.y + ((p4.y - p2.y) * secondHalf) };
+
+      line(p1.x, p1.y, p2.x, p2.y);
+      line(p2.x, p2.y, p5.x, p5.y);
+
     }, 4, true);
+
     pop();
   }
 
