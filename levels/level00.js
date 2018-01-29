@@ -2,14 +2,16 @@ class Level00 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
     super(width, height, hitCallback, 2, ASSETS.IMAGES["b1.jpg"]);
+    this.joint1 = { x: 50 * 9, y: 50 * 9 };
+    this.joint2 = { x: this.width - (50 * 9), y: 50 * 9 };
   }
 
   setup() {
     this.ground.push(new Ground(this.width / -6.7, this.height * 1.18, 1000, 1000, PI / 10));
     this.ground.push(new Ground(this.width + this.width / 6.7, this.height * 1.18, 1000, 1000, -PI / 10, '#003d00'));
     this.ground.push(new Ground(this.width / 2, this.height - 50 / 2, width, 50, 0, '#629749'));
-    this.anchors.push(new Joint(50 * 9, 50 * 9, 12, true));
-    this.anchors.push(new Joint(this.width - (50 * 9), 50 * 9, 12, true));
+    this.anchors.push(new Joint(this.joint1.x, this.joint1.y, 12, true));
+    this.anchors.push(new Joint(this.joint2.x, this.joint2.y, 12, true));
   }
 
   setupHumans() {
@@ -30,22 +32,41 @@ class Level00 extends BaseLevel {
 
     textStyle(BOLD);
     textSize(32);
-    text('Welcome to Constructeer!', 30, 30);
+    text('Welcome to Constructeer!', 30, 50);
 
     this.after(1.2, () => {
       textStyle(NORMAL);
       textSize(22);
-      text('Save the humans by constructing a helping barrier\n' +
-        'using your construction and engineer skills.',
-        30, 80
+      text('Save the humans by constructing a helping barrier!\n' +
+        'Use and improve your construction and engineering skills.',
+        30, 100
       );
     });
 
-    this.for(2.2, (progress) => {
+    this.after(3.2, () => {
+      textStyle(BOLD);
+      textSize(18);
+      text('Draw beams by dragging your mouse from joint to joint...',
+        250, 300
+      );
+    });
+
+    this.after(3.2, () => {
+      textStyle(NORMAL);
+      strokeWeight(1);
+      textSize(18);
+      text('(Hint: Hold down the SHIFT key to get a helper grid)',
+        250, 330
+      );
+    });
+
+    this.for(2.6, (progress) => {
+      strokeWeight(2);
+      stroke('#ff5722');
       var firstHalf = progress * 2;
       var secondHalf = (progress - 0.5) * 2;
 
-      var p1 = { x: 500, y: 500 };
+      var p1 = this.joint1;
       var p2 = { x: 600, y: 400 };
       var p3 = { x: p1.x + ((p2.x - p1.x) * firstHalf), y: p1.y + ((p2.y - p1.y) * firstHalf) };
 
@@ -54,13 +75,12 @@ class Level00 extends BaseLevel {
         return;
       }
 
-      var p4 = { x: 700, y: 500 };
+      var p4 = this.joint2;
       var p5 = { x: p2.x + ((p4.x - p2.x) * secondHalf), y: p2.y + ((p4.y - p2.y) * secondHalf) };
 
       line(p1.x, p1.y, p2.x, p2.y);
       line(p2.x, p2.y, p5.x, p5.y);
-
-    }, 4, true);
+    }, 3.2, true);
 
     pop();
   }
