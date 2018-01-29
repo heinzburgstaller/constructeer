@@ -10,11 +10,38 @@ class BaseLevel {
     this.humanHitCallback = humanHitCallback;
     this.maxBeams = maxBeams;
     this.bg = bgImage != null ? loadImage(bgImage) : null;
+    this.frameCountInConstructor = frameCount;
     document.getElementById('beamsToGo').innerHTML = this.maxBeams;
   }
 
   setup() {
 
+  }
+
+  after(seconds, callback) {
+    if (this.frameCountInConstructor + (seconds * 50) < frameCount) {
+      callback.apply(this);
+    }
+  }
+
+  for(seconds, callback, afterSeconds = 0, repeat = false) {
+    var startedAt = this.frameCountInConstructor + (afterSeconds * 50);
+
+    if (startedAt >= frameCount) {
+      return;
+    }
+
+    var diff = startedAt + (frameCount - startedAt);
+    var endAt = startedAt + 50 * seconds;
+
+    if (repeat == false && endAt < frameCount) {
+      return;
+    }
+
+    var progress = (diff - startedAt) / (endAt - startedAt);
+    var integr = Math.floor(progress);
+    var decimal = progress - integr;
+    callback.apply(this, [decimal]);
   }
 
   setupHumans() {

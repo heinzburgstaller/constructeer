@@ -309,6 +309,7 @@ function draw() {
   }
 
   if (gridIsOn) {
+    push();
     var lines_x = level.width / gridSize;
     var lines_y = level.height / gridSize;
     for (var lineNr = 0; lineNr < lines_x; lineNr++) {
@@ -321,6 +322,8 @@ function draw() {
       stroke('black');
       line(0, lineNr * gridSize, level.width, lineNr * gridSize);
     }
+
+    pop();
   }
 
   if (drawing == true && runEngine == false) {
@@ -333,10 +336,12 @@ function draw() {
       return;
     }
 
+    push();
     strokeWeight(3);
     drawingLegal ? stroke('green') : stroke('red');
     grid_mouseDragged = getGridCoords(mouseDraggedX, mouseDraggedY);
     line(mousePressedX, mousePressedY, grid_mouseDragged.x, grid_mouseDragged.y);
+    pop();
   }
 }
 

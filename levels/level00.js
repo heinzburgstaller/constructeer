@@ -20,6 +20,34 @@ class Level00 extends BaseLevel {
 
   show() {
     super.show();
+    if (runEngine == false) {
+      this.showTutorial();
+    }
+  }
+
+  showTutorial() {
+    push();
+    textStyle(BOLD);
+    textSize(32);
+    text('Welcome to Constructeer!', 30, 30);
+
+    this.after(1.2, () => {
+      textStyle(NORMAL);
+      textSize(22);
+      text('Save the humans by constructing a helping barrier\n' +
+        'using your construction and engineer skills.',
+        30, 80
+      );
+    });
+
+    this.for(1, (progress) => {
+      var p1 = { x: 500, y: 500 };
+      var p2 = { x: 800, y: 400 };
+      var p3 = { x: p1.x + ((p2.x - p1.x) * progress), y: p1.y + ((p2.y - p1.y) * progress) };
+
+      line(p1.x, p1.y, p3.x, p3.y);
+    }, 4, true);
+    pop();
   }
 
   doCatastrophe() {
