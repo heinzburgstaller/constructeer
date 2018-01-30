@@ -37,8 +37,8 @@ class Level00 extends BaseLevel {
     this.after(1.2, () => {
       textStyle(NORMAL);
       textSize(22);
-      text('Save the humans by constructing a helping barrier!\n' +
-        'Use and improve your construction and engineering skills.',
+      text('Save the humans by constructing\na helping barrier!' +
+        ' Use and improve your\nconstruction and engineering skills.',
         30, 100
       );
     });
@@ -60,6 +60,33 @@ class Level00 extends BaseLevel {
       );
     });
 
+    this.after(5, () => {
+      textStyle(NORMAL);
+      textSize(18);
+      fill('blue');
+      text('Test your construction\nby hitting the "Run" button!',
+        935, 30
+      );
+    });
+
+    this.after(5.8, () => {
+      textStyle(NORMAL);
+      textSize(18);
+      fill('red');
+      text('Or go back into construction\nmode with the "Construct"\nbutton, if something went\nwrong',
+        935, 80
+      );
+    });
+
+    this.after(7.8, () => {
+      textStyle(NORMAL);
+      textSize(15);
+      fill('black');
+      text('A wonderful\n"undo" button is\nalso up here ;)',
+        720, 30
+      );
+    });
+
     this.for(2.6, (progress) => {
       strokeWeight(2);
       stroke('#ff5722');
@@ -69,6 +96,11 @@ class Level00 extends BaseLevel {
       var p1 = this.joint1;
       var p2 = { x: 600, y: 400 };
       var p3 = { x: p1.x + ((p2.x - p1.x) * firstHalf), y: p1.y + ((p2.y - p1.y) * firstHalf) };
+
+      if (firstHalf > 0.9) {
+        fill('#ff5722');
+        ellipse(p2.x, p2.y, 12 * 2);
+      }
 
       if (firstHalf <= 1.0) {
         line(p1.x, p1.y, p3.x, p3.y);
