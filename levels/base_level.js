@@ -19,20 +19,20 @@ class BaseLevel {
   }
 
   after(seconds, callback) {
-    if (this.frameCountInConstructor + (seconds * 50) < frameCount) {
+    if (this.frameCountInConstructor + (seconds * FPS) < frameCount) {
       callback.apply(this);
     }
   }
 
   for(seconds, callback, afterSeconds = 0, repeat = false) {
-    var startedAt = this.frameCountInConstructor + (afterSeconds * 50);
+    var startedAt = this.frameCountInConstructor + (afterSeconds * FPS);
 
     if (startedAt >= frameCount) {
       return;
     }
 
     var diff = startedAt + (frameCount - startedAt);
-    var endAt = startedAt + 50 * seconds;
+    var endAt = startedAt + FPS * seconds;
 
     if (repeat == false && endAt < frameCount) {
       return;

@@ -6,13 +6,13 @@ class Level01 extends BaseLevel {
 
 
   setup() {
-    this.ground.push(new Ground(this.width / 2, this.height - 50 / 2, width, 50));
-    this.anchors.push(new Joint(50 * 6, this.height - 50, 12, true));
-    this.anchors.push(new Joint(this.width - (50 * 6), this.height - 50, 12, true));
+    this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize));
+    this.anchors.push(new Joint(gridSize * 6, this.height - gridSize, 12, true));
+    this.anchors.push(new Joint(this.width - (gridSize * 6), this.height - gridSize, 12, true));
   }
 
   setupHumans() {
-    this.humans.push(new Human(this.width / 2, this.height - 50, 120, this.humanHitCallback));
+    this.humans.push(new Human(this.width / 2, this.height - gridSize, 120, this.humanHitCallback));
   }
 
   show() {

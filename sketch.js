@@ -17,12 +17,13 @@ var helper = new Helper();
 var numberOfBeams = 0;
 var constructionHistory = [];
 var gridIsOn = false;
-var gridSize = 50;
+const gridSize = 50;
+const FPS = 50;
 
 function setup() {
   var p5Canvas = createCanvas(1200, 650);
   p5Canvas.parent("canvasContainer");
-  frameRate(50);
+  frameRate(FPS);
   gridIsOn = false;
 
   engine = Engine.create();
