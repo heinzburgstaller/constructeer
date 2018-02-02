@@ -50,6 +50,41 @@ class Meteor extends {
     this.line = Bodies.rectangle(this.x, this.y, this.line_options.w, this.line_options.h, this.line_options);
     this.ball = Bodies.circle(this.x, this.y, this.ballSize, this.ball_options);
 
+    World.add(world, this.rotation_point);
+    World.add(world, this.line);
+    World.add(world, this.ball);
+
+    this.createConstraints();
+
   }
+
+  createConstraints(){
+
+  }
+
+  drawRect(part, options, color){
+    push();
+    translate(part.position.x, part.position.y);
+    rotate(part.angle);
+    rectMode(CENTER);
+    strokeWeight(1);
+    stroke('#202021');
+    fill(color);
+    rect(0, 0, options.w, options.h,this.h/10);
+    pop();
+  }
+
+  drawCircle(part, options, color){
+    push();
+    translate(part.position.x, part.position.y);
+    rotate(part.angle);
+    circleMode(CENTER);
+    strokeWeight(1);
+    stroke('#202021');
+    fill(color);
+    rect(0, 0, options.w, options.h,this.h/10);
+    pop();
+  }
+
 
 }
