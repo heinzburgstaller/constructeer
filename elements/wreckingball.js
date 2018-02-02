@@ -42,7 +42,7 @@ class WreckingBall{
       restitution: 0.2,
       angle: 0,
       isStatic: false,
-      density: 100.0,
+      density: 1.0,
       collisionFilter: {
         group: "wrecking"
       }
