@@ -80,6 +80,9 @@ function loadLevel(levelString = null) {
     case 'Level04':
       level = new Level04(this.width, this.height, this.bodyHit);
       break;
+    case 'Level05':
+      level = new Level05(this.width, this.height, this.bodyHit);
+      break;
     default:
       level = new Level01(this.width, this.height, this.bodyHit);
       break;

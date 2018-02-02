@@ -1,9 +1,8 @@
-class Meteor extends {
+class WreckingBall{
 
   constructor(x, y, length, ballSize) {
-
     this.x = x;
-    thix.y = y;
+    this.y = y;
     this.length = length;
     this.ballSize = ballSize;
 
@@ -21,7 +20,7 @@ class Meteor extends {
     }
 
     this.line_options = {
-      h: 1,
+      h: 20,
       w: length,
       friction: 0.95,
       restitution: 0.2,
@@ -30,6 +29,9 @@ class Meteor extends {
       density: 1.0,
       collisionFilter: {
         group: "wrecking"
+      },
+      chamfer: {
+        radius: this.length / 10
       }
     }
 
@@ -40,14 +42,16 @@ class Meteor extends {
       restitution: 0.2,
       angle: 0,
       isStatic: false,
-      density: 1.0,
+      density: 100.0,
       collisionFilter: {
         group: "wrecking"
       }
     }
 
+
+
     this.rotation_point = Bodies.circle(this.x+this.length, this.y, 10, this.rotation_point_options);
-    this.line = Bodies.rectangle(this.x, this.y, this.line_options.w, this.line_options.h, this.line_options);
+    this.line = Bodies.rectangle(this.x+this.length/2, this.y, this.line_options.w, this.line_options.h, this.line_options);
     this.ball = Bodies.circle(this.x, this.y, this.ballSize, this.ball_options);
 
     World.add(world, this.rotation_point);
@@ -60,6 +64,45 @@ class Meteor extends {
 
   createConstraints(){
 
+    var rotation_to_line = Constraint.create({
+      bodyA: this.line,
+      length: 0,
+      pointA: {
+        x: this.length/2,
+        y: 0
+      },
+      pointB: {
+        x: 0,
+        y: 0
+      },
+      bodyB: this.rotation_point,
+      stiffness: 1
+    });
+
+    var ball_to_line = Constraint.create({
+      bodyA: this.line,
+      length: 0,
+      pointA: {
+        x: -this.length/2,
+        y: 0
+      },
+      pointB: {
+        x: 0,
+        y: 0
+      },
+      bodyB: this.ball,
+      stiffness: 1
+    });
+
+    World.add(world, rotation_to_line);
+    World.add(world, ball_to_line);
+
+  }
+
+  show() {
+    this.drawRect(this.line, this.line_options, '#fdc5ba');
+    this.drawCircle(this.ball, this.ball_options, '#3c3cd7');
+    this.drawCircle(this.rotation_point, this.rotation_point_options, '#fdc5ba');
   }
 
   drawRect(part, options, color){
@@ -70,7 +113,7 @@ class Meteor extends {
     strokeWeight(1);
     stroke('#202021');
     fill(color);
-    rect(0, 0, options.w, options.h,this.h/10);
+    rect(0, 0, options.w, options.h, this.length / 10);
     pop();
   }
 
@@ -78,11 +121,10 @@ class Meteor extends {
     push();
     translate(part.position.x, part.position.y);
     rotate(part.angle);
-    circleMode(CENTER);
     strokeWeight(1);
     stroke('#202021');
     fill(color);
-    rect(0, 0, options.w, options.h,this.h/10);
+    ellipse(0, 0, options.w*2);
     pop();
   }
 
