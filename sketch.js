@@ -17,19 +17,20 @@ var helper = new Helper();
 var numberOfBeams = 0;
 var constructionHistory = [];
 var gridIsOn = false;
-var gridSize = 50;
+const gridSize = 50;
+const FPS = 50;
 
 function setup() {
   var p5Canvas = createCanvas(1200, 650);
   p5Canvas.parent("canvasContainer");
-  frameRate(50);
+  frameRate(FPS);
   gridIsOn = false;
 
   engine = Engine.create();
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel01();
+  loadLevel('Level00');
 }
 
 function testConstruction() {
@@ -52,31 +53,40 @@ function construct() {
   elements.forEach(item => item.remove());
   elements = [];
   level.clearOthers();
+  level.clearHumans();
+  level.setupHumans();
   redrawFromHistory();
 }
 
-function loadLevel01() {
-  clearAll();
-  level = new Level01(this.width, this.height, this.bodyHit);
-  level.setup();
-}
+function loadLevel(levelString = null) {
+  var e = document.getElementById('selectLevel');
+  var levelClassString = levelString === null ? e.options[e.selectedIndex].value : levelString;
 
-function loadLevel02() {
   clearAll();
-  level = new Level02(this.width, this.height, this.bodyHit);
-  level.setup();
-}
 
-function loadLevel03() {
-  clearAll();
-  level = new Level03(this.width, this.height, this.bodyHit);
-  level.setup();
-}
+  switch (levelClassString) {
+    case 'Level00':
+      level = new Level00(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level01':
+      level = new Level01(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level02':
+      level = new Level02(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level03':
+      level = new Level03(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level04':
+      level = new Level04(this.width, this.height, this.bodyHit);
+      break;
+    default:
+      level = new Level01(this.width, this.height, this.bodyHit);
+      break;
+  }
 
-function loadLevel04() {
-  clearAll();
-  level = new Level04(this.width, this.height, this.bodyHit);
   level.setup();
+  level.setupHumans();
 }
 
 function checkMouseOnBody() {
@@ -88,7 +98,7 @@ function checkMouseOnBody() {
   });
 }
 
-function bodyHit(){
+function bodyHit() {
   console.log("Body Hit");
 }
 
@@ -300,6 +310,7 @@ function draw() {
   }
 
   if (gridIsOn) {
+    push();
     var lines_x = level.width / gridSize;
     var lines_y = level.height / gridSize;
     for (var lineNr = 0; lineNr < lines_x; lineNr++) {
@@ -312,8 +323,9 @@ function draw() {
       stroke('black');
       line(0, lineNr * gridSize, level.width, lineNr * gridSize);
     }
-  }
 
+    pop();
+  }
 
   if (drawing == true && runEngine == false) {
 
@@ -325,10 +337,12 @@ function draw() {
       return;
     }
 
+    push();
     strokeWeight(3);
     drawingLegal ? stroke('green') : stroke('red');
     grid_mouseDragged = getGridCoords(mouseDraggedX, mouseDraggedY);
     line(mousePressedX, mousePressedY, grid_mouseDragged.x, grid_mouseDragged.y);
+    pop();
   }
 }
 
