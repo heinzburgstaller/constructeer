@@ -62,6 +62,12 @@ class WreckingBall{
 
   }
 
+  remove() {
+    World.remove(world, this.rotation_point);
+    World.remove(world, this.line);
+    World.remove(world, this.ball);
+  }
+
   createConstraints(){
 
     var rotation_to_line = Constraint.create({
@@ -100,9 +106,9 @@ class WreckingBall{
   }
 
   show() {
-    this.drawRect(this.line, this.line_options, '#fdc5ba');
-    this.drawCircle(this.ball, this.ball_options, '#3c3cd7');
-    this.drawCircle(this.rotation_point, this.rotation_point_options, '#fdc5ba');
+    this.drawRect(this.line, this.line_options, '#d7d73c');
+    this.drawCircle(this.ball, this.ball_options, '#d73c3c');
+    this.drawCircle(this.rotation_point, this.rotation_point_options, '#3c3cd7');
   }
 
   drawRect(part, options, color){
