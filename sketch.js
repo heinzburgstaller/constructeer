@@ -20,8 +20,11 @@ var gridIsOn = false;
 const gridSize = 50;
 const FPS = 50;
 
+const CANVAS_WIDTH = 1200;
+const CANVAS_HEIGHT = 650;
+
 function setup() {
-  var p5Canvas = createCanvas(1200, 650);
+  var p5Canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   p5Canvas.parent("canvasContainer");
   frameRate(FPS);
   gridIsOn = false;
@@ -82,6 +85,9 @@ function loadLevel(levelString = null) {
       break;
     case 'Level05':
       level = new Level05(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level06':
+      level = new Level06(this.width, this.height, this.bodyHit);
       break;
     default:
       level = new Level01(this.width, this.height, this.bodyHit);
