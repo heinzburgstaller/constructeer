@@ -61,7 +61,7 @@ function construct() {
 function loadLevel(levelString = null) {
   var e = document.getElementById('selectLevel');
   var levelClassString = levelString === null ? e.options[e.selectedIndex].value : levelString;
-
+  console.log(levelClassString);
   clearAll();
 
   switch (levelClassString) {
