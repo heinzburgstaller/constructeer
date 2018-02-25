@@ -61,7 +61,7 @@ function construct() {
 function loadLevel(levelString = null) {
   var e = document.getElementById('selectLevel');
   var levelClassString = levelString === null ? e.options[e.selectedIndex].value : levelString;
-  console.log(levelClassString);
+  //console.log(levelClassString);
   clearAll();
 
   switch (levelClassString) {
@@ -219,7 +219,7 @@ function mouseReleased() {
   elements.push(sb);
 
   if (bodyC === null) {
-    var j = new Joint(mouse.x, mouse.y, 12);
+    var j = new Joint(mouse.x, mouse.y, 10);
     bodyC = j.body;
     elements.push(j);
   }
@@ -274,7 +274,7 @@ function redrawFromHistory() {
     if (jointPerPoint !== null) {
       bodyC = jointPerPoint.body;
     } else {
-      var j = new Joint(historyElement.jointX, historyElement.jointY, 12);
+      var j = new Joint(historyElement.jointX, historyElement.jointY, 10);
       bodyC = j.body;
       elements.push(j);
     }

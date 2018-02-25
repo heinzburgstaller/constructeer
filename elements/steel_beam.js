@@ -23,12 +23,24 @@ class SteelBeam extends BaseElement {
     var pos = this.body.position;
     var angle = this.body.angle;
     translate(pos.x, pos.y);
-    rotate(angle);
-    rectMode(CENTER);
-    strokeWeight(1);
+    //rectMode(CENTER);
+    strokeWeight(0);
     stroke('#202021');
     fill('#4e4e51');
-    rect(0, 0, this.w - 30, this.h);
+    //rect(0, 0, this.w - 24, this.h);
+    var hheight = this.h/2;
+    var hwidth = (this.w-20)/2;
+    var brad = 4;
+    rotate(angle);
+    beginShape();
+    vertex(-hwidth,-hheight);
+    bezierVertex(-hwidth+brad, -2, -hwidth+brad, +2, -hwidth, hheight);
+    vertex(-hwidth,hheight);
+    vertex(hwidth, hheight);
+    bezierVertex(hwidth-brad, +2, hwidth-brad, -2, hwidth, -hheight);
+    vertex(hwidth, -hheight);
+    endShape(CLOSE);
+
   }
 
   getAngle() {

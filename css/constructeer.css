@@ -12,13 +12,18 @@
 .label-btn {
     pointer-events: none;
 }*/
-
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  src: url("../webfonts/fa-solid-900.eot");
+  src: url("../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.woff") format("woff"), url("../webfonts/fa-solid-900.ttf") format("truetype"), url("../webfonts/fa-solid-900.svg#fontawesome") format("svg"); }
 
 body
 {
   display: flex;
   justify-content: space-around;
-  align-items: flx-start;
+  align-items: flex-start;
   background-color: #ccc;
   margin-top: 2em;
 }
@@ -51,6 +56,8 @@ body
 .gui_logo .logo img
 {
   height: 4em;
+  position:relative;
+  top: -8px;
 }
 
 .gui_logo .logo_text
@@ -65,7 +72,7 @@ body
 
 .undo_button
 {
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   background: transparent;
   font-size: 1.2em;
   border: 0px;
@@ -108,11 +115,37 @@ body
   background-color: #222;
 }
 
+.cbutton:hover .green
+{
+    color: #00B500;
+}
+
+.cbutton:hover .red
+{
+    color: #d12617;
+}
+.cbutton:hover .yellow
+{
+  color: #FFED00;
+}
+
+.undo_section:hover .blue
+{
+    color: #66AAFF;
+}
+
+.s1em
+{
+  font-size: 1em !important;
+}
+
 .family_awesome
 {
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   font-size: 1.3em;
 }
+
 
 
 /*
@@ -158,7 +191,8 @@ body
 .sel::before {
   position: absolute;
   content: '\f063';
-  font-family: 'FontAwesome';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   font-size: 1em;
   color: #FFF;
   right: 10px;
@@ -232,9 +266,9 @@ body
 
 .sel__box__options::after {
   content: '\f00c';
-  font-family: 'FontAwesome';
-  font-size: 0.5em;
-  margin-left: 5px;
+  font-family: 'Font Awesome 5 Free';
+  font-size: 1em;
+  margin-left: 10px;
   display: none;
 }
 

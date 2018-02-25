@@ -259,8 +259,9 @@ class Human {
     this.drawBodypart(this.right_arm, this.right_arm_options, '#7CA660');
     this.drawBodypart(this.left_foot, this.left_foot_options, '#9499A6');
     this.drawBodypart(this.right_foot, this.right_foot_options, '#9499A6');
-    this.drawBodypart(this.torso, this.torso_options, '#7CA660');
     this.drawBodypart(this.left_arm, this.left_arm_options, '#7CA660');
+    this.drawBodypart(this.torso, this.torso_options, '#7CA660');
+
   }
 
   remove() {
@@ -277,7 +278,7 @@ class Human {
     translate(part.position.x, part.position.y);
     rotate(part.angle);
     rectMode(CENTER);
-    strokeWeight(0);
+    strokeWeight(1);
     stroke('#202021');
     fill(color);
     rect(0, 0, options.w, options.h, this.h / 10);

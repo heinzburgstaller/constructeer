@@ -39,11 +39,10 @@ $('.sel__box__options').click(function() {
 
   $(this).siblings('.sel__box__options').removeClass('selected');
   $(this).addClass('selected');
-  console.log(txt);
-  console.log(index);
-  loadLevel();
-
   var $currentSel = $(this).closest('.sel');
   $currentSel.children('.sel__placeholder').text(txt);
   $currentSel.children('select').prop('selectedIndex', index + 1);
+  //console.log(txt);
+  //console.log(index);
+  loadLevel();
 });

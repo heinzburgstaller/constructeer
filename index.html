@@ -11,7 +11,7 @@
   <link rel="manifest" href="assets/favicon/manifest.json">
   <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
   <!--<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">-->
-  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+  <!--<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/5.0.6/css/font-awesome.min.css'>-->
   <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Lato|Quicksand'>
 
   <meta name="theme-color" content="#ffffff">
@@ -19,20 +19,7 @@
   <!--<link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
   <!--<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.min.css">-->
-  <!--<script>
-      import {MDCSelect} from '@material/select';
-
-      const select = new MDCSelect(document.querySelector('.mdc-select'));
-      select.listen('MDCSelect:change', () => {
-        alert(`Selected "${select.selectedOptions[0].textContent}" at index ${select.selectedIndex} ` +
-              `with value "${select.value}"`);
-      });
-    </script>-->
-  <!--  <script src="node_modules/material-components-web/dist/material-components-web.js"></script>
-
-
-
--->
+  <!--  <script src="node_modules/material-components-web/dist/material-components-web.js"></script>-->
   <link href="css/constructeer.css" rel="stylesheet">
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/matter.js"></script>
@@ -69,24 +56,10 @@
           <h3>Constructeer</h3>
         </div>
       </div>
-      <!--<div class="col-xs-2" style="padding-top: 18px;">
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="sel1">Level</label>
-            <select class="form-control" id="selectLevel" onchange="loadLevel()">
-              <option value="Level00">Tutorial</option>
-              <option value="Level01">Level 1</option>
-              <option value="Level02">Level 2</option>
-              <option value="Level03">Level 3</option>
-              <option value="Level04">Level 4</option>
-              <option value="Level05">Level 5</option>
-            </select>
-          </div>
-        </form>
-      </div>-->
         <div class="sel sel--black-panther">
           <select name="select_level" id="selectLevel" class="" onchange="loadLevel()"">
             <option value="Nix" disabled>Select Level</option>
+            <option value="Level00">Tutorial</option>
             <option value="Level01">Level 01</option>
             <option value="Level02" >Level 02</option>
             <option value="Level03" >Level 03</option>
@@ -98,16 +71,16 @@
       <div class="undo_section">
         <button type="button" name="undo-button" class="undo_button" title="Undo"
           onclick="undo()">
-          <span></span>
+          <span class="family_awesome blue s1em"></span>
         </button>
         <span id="beamsToGo" title="Beams Remaining">0</span><span> Beams remaining </span>
 
       </div>
       <div class="control_section">
           <button type="button" class="cbutton button_construct" onclick="construct()">
-            <span class="family_awesome"></span> Construct</button>
+            <span class="family_awesome yellow"></span> Construct</button>
           <button type="button" class="cbutton button_run" onclick="testConstruction()">
-            <span class="family_awesome"></span> Run</button>
+            <span class="family_awesome green"></span> Run</button>
       </div>
     </div>
   </header>
