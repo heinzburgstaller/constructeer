@@ -5,7 +5,8 @@ var Engine = Matter.Engine,
   // Render = Matter.Render, Not needed rendering is done by p5.js
   World = Matter.World,
   Bodies = Matter.Bodies,
-  Constraint = Matter.Constraint;
+  Constraint = Matter.Constraint,
+  Events = Matter.Events;
 
 var engine;
 var world;
@@ -55,6 +56,7 @@ function construct() {
   level.clearOthers();
   level.clearHumans();
   level.setupHumans();
+  level.resetStaticJoints();
   redrawFromHistory();
 }
 
@@ -82,6 +84,9 @@ function loadLevel(levelString = null) {
       break;
     case 'Level05':
       level = new Level05(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level07':
+      level = new Level08(this.width, this.height, this.bodyHit);
       break;
     default:
       level = new Level01(this.width, this.height, this.bodyHit);
