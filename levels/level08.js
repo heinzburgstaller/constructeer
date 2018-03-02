@@ -1,11 +1,13 @@
 class Level08 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
-    super(width, height, hitCallback, 40, ASSETS.IMAGES["b5.jpg"]);
+    super(width, height, hitCallback, 10, ASSETS.IMAGES["b5.jpg"]);
   }
 
   setup() {
-    this.ground.push(new Ground(this.width / -3, this.height * 0.60, 1000, 1000, PI / 5));
+    this.ground.push(new Ground(this.width / -8, this.height * 0.60, 1000, 1000, PI / 5));
+    this.ground.push(new Ground(this.width +400, this.height * 0.60, 1000, 1000, PI / 8));
+
     this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize));
     this.anchors.push(new Joint(this.width - (gridSize * 16), this.height - gridSize, 12, true));
     this.anchors.push(new Joint(this.width - (gridSize * 8), this.height - gridSize, 12, true));

@@ -35,7 +35,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel('Level10');
+  loadLevel('Level08');
 }
 
 function testConstruction() {
