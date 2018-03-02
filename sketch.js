@@ -6,6 +6,8 @@ var Engine = Matter.Engine,
   World = Matter.World,
   Bodies = Matter.Bodies,
   Constraint = Matter.Constraint;
+  Composites = Matter.Composites;
+  Svg = Matter.Svg;
 
 var engine;
 var world;
@@ -33,7 +35,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel('Level00');
+  loadLevel('Level10');
 }
 
 function testConstruction() {
@@ -92,6 +94,15 @@ function loadLevel(levelString = null) {
     case 'Level07':
       level = new Level07(this.width, this.height, this.bodyHit);
       break;
+    case 'Level08':
+      level = new Level08(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level09':
+      level = new Level09(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level10':
+      level = new Level10(this.width, this.height, this.bodyHit);
+      break;
     default:
       level = new Level01(this.width, this.height, this.bodyHit);
       break;
@@ -119,6 +130,8 @@ var mouseDraggedY = -1;
 
 function mouseDragged() {
   if (mousePressedX >= 0 && mousePressedY >= 0) {
+    console.log(mouseX)
+    console.log(mouseY)
     drawing = true;
     drawingLegal = false;
     mouseDraggedX = mouseX;

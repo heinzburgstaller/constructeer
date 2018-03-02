@@ -7106,7 +7106,13 @@ var Bodies = _dereq_('./Bodies');
                 chamfer: {
                     radius: height * 0.5
                 },
-                density: 0.0002
+                density: 0.0007,
+                render: {
+                    sprite: {
+                        texture: '../assets/rocket.png',
+                    }
+                }
+
             });
     
         var wheelA = Bodies.circle(xx + wheelAOffset, yy + wheelYOffset, wheelSize, { 
