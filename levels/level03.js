@@ -1,12 +1,12 @@
 class Level03 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
-    super(width, height, hitCallback, 40, ASSETS.IMAGES["b2.jpg"]);
+    super(width, height, hitCallback, 40, ASSETS.IMAGES["snow.png"]);
   }
 
   setup() {
-    this.ground.push(new Ground(this.width / -3, this.height * 0.60, 1000, 1000, PI / 5));
-    this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize));
+    this.ground.push(new Ground(this.width / -3, this.height * 0.60, 1000, 1000, PI / 5, '#fff', 0));
+    this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize, undefined, '#fff', 0));
     this.anchors.push(new Joint(this.width - (gridSize * 9), this.height - gridSize, 12, true));
     this.anchors.push(new Joint(this.width - (gridSize * 7), this.height - gridSize, 12, true));
     this.anchors.push(new Joint(this.width - (gridSize * 5), this.height - gridSize, 12, true));

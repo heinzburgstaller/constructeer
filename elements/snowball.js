@@ -14,7 +14,7 @@ class Snowball extends BaseElement {
 
   draw() {
     var pos = this.body.position;
-    strokeWeight(1);
+    strokeWeight(0);
     stroke('#202021');
     fill('#f9fbff');
     translate(pos.x, pos.y);

@@ -9,12 +9,17 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
   <link rel="manifest" href="assets/favicon/manifest.json">
-  <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg"
-    color="#5bbad5">
+  <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <!--<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">-->
+  <!--<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/5.0.6/css/font-awesome.min.css'>-->
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Lato|Quicksand'>
+
   <meta name="theme-color" content="#ffffff">
   <title>Constructeer</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+  <!--<link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
+  <!--<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.min.css">-->
+  <!--  <script src="node_modules/material-components-web/dist/material-components-web.js"></script>-->
   <link href="css/constructeer.css" rel="stylesheet">
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/matter.js"></script>
@@ -28,7 +33,7 @@
   <script language="javascript" type="text/javascript" src="elements/joint.js"></script>
   <script language="javascript" type="text/javascript" src="elements/ground.js"></script>
   <script language="javascript" type="text/javascript" src="elements/meteor.js"></script>
-    <script language="javascript" type="text/javascript" src="elements/wreckingball.js"></script>
+  <script language="javascript" type="text/javascript" src="elements/wreckingball.js"></script>
   <script language="javascript" type="text/javascript" src="elements/snowball.js"></script>
   <script language="javascript" type="text/javascript" src="elements/ufo.js"></script>
   <script language="javascript" type="text/javascript" src="elements/raindrop.js"></script>
@@ -41,54 +46,52 @@
   <script language="javascript" type="text/javascript" src="levels/level05.js"></script>
   <script language="javascript" type="text/javascript" src="levels/level06.js"></script>
   <script language="javascript" type="text/javascript" src="levels/level07.js"></script>
+  <script language="javascript" type="text/javascript" src="levels/level08.js"></script>
 </head>
 
 <body>
 
   <div class="container">
-    <div class="row">
-      <div class="col-xs-1">
-        <img src="assets/builder.png">
-      </div>
-      <div class="col-xs-4">
-        <h3>Constructeer</h3>
-      </div>
-      <div class="col-xs-2" style="padding-top: 18px;">
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="sel1">Level</label>
-            <select class="form-control" id="selectLevel" onchange="loadLevel()">
-              <option value="Level00">Tutorial</option>
-              <option value="Level01">Level 1</option>
-              <option value="Level02">Level 2</option>
-              <option value="Level03">Level 3</option>
-              <option value="Level04">Level 4</option>
-              <option value="Level05">Level 5</option>
-              <option value="Level06">Level 6</option>
-              <option value="Level07">Level 7</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="col-xs-2" style="padding-top: 16px;">
-        <button type="button" name="undo-button" class="btn btn-warning"
-          onclick="undo()">
-          <span class="glyphicon glyphicon-arrow-left"></span> undo
-          <span class="badge badge-warning">Beams to go
-            <span id="beamsToGo">0</span>
-          </span>
-        </button>
-      </div>
-      <div class="col-xs-3" style="padding-top: 6px;">
-        <div class="btn-group btn-group-lg pull-right" role="group" aria-label="...">
-          <button type="button" class="btn btn-danger" onclick="construct()">
-            Construct</button>
-          <button type="button" class="btn btn-primary" onclick="testConstruction()">
-            <span class="glyphicon glyphicon-play-circle"></span>
-            Run</button>
+    <div class="gui_top">
+      <div class="gui_logo">
+        <div class="logo">
+          <img src="assets/builder.png">
+        </div>
+        <div class="logo_text">
+          <h3>Constructeer</h3>
         </div>
       </div>
+        <div class="sel sel--black-panther">
+          <select name="select_level" id="selectLevel" class="" onchange="loadLevel()"">
+            <option value="Nix" disabled>Select Level</option>
+            <option value="Level00">Tutorial</option>
+            <option value="Level01">Level 01</option>
+            <option value="Level02" >Level 02</option>
+            <option value="Level03" >Level 03</option>
+            <option value="Level04" >Level 04</option>
+            <option value="Level05" >Level 05</option>
+            <option value="Level06" >Level 06</option>
+            <option value="Level07" >Level 07</option>
+            <option value="Level08" >Level 08</option>
+          </select>
+        <hr class="rule">
+        </div>
+      <div class="undo_section">
+        <button type="button" name="undo-button" class="undo_button" title="Undo"
+          onclick="undo()">
+          <span class="family_awesome blue s1em"></span>
+        </button>
+        <span id="beamsToGo" title="Beams Remaining">0</span><span> Beams remaining </span>
+
+      </div>
+      <div class="control_section">
+          <button type="button" class="cbutton button_construct" onclick="construct()">
+            <span class="family_awesome yellow"></span> Construct</button>
+          <button type="button" class="cbutton button_run" onclick="testConstruction()">
+            <span class="family_awesome green"></span> Run</button>
+      </div>
     </div>
+  </header>
     <div class="row">
       <div id="canvasContainer">
       </div>
@@ -97,6 +100,8 @@
 
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script language="javascript" type="text/javascript" src="js/select.js"></script>
+
 </body>
 
 </html>

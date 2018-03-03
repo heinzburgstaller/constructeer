@@ -17,15 +17,16 @@ class Joint extends BaseElement {
 
   draw() {
     var pos = this.body.position;
-    strokeWeight(1);
+    strokeWeight(2);
     stroke('#202021');
     if (this.body.isStatic) {
-      fill('#ffbc2d');
+      //fill('#ffbc2d');
+      fill('#000000');
     } else {
-      fill('#7c7462');
+      fill('#cccccc');
     }
     if (this.mouseOnBody) {
-      fill('#bc0000');
+      fill('#00bc00');
     }
     translate(pos.x, pos.y);
     ellipse(0, 0, this.r * 2);

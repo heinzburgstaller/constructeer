@@ -114,4 +114,9 @@ class BaseLevel {
     this.humans = [];
   }
 
+  resetStaticJoints()
+  {
+
+  }
+
 }
