@@ -12,12 +12,38 @@
 .label-btn {
     pointer-events: none;
 }*/
+
 @font-face {
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'FontAwesome400';
   font-style: normal;
-  font-weight: 900;
-  src: url("../webfonts/fa-solid-900.eot");
-  src: url("../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.woff") format("woff"), url("../webfonts/fa-solid-900.ttf") format("truetype"), url("../webfonts/fa-solid-900.svg#fontawesome") format("svg"); }
+  font-weight: 400;
+  src: url("../assets/fonts/fa-regular-400.eot");
+  src: url("../assets/fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"),
+       url("../assets/fonts/fa-regular-400.woff2") format("woff2"),
+       url("../assets/fonts/fa-regular-400.woff") format("woff"),
+       url("../assets/fonts/fa-regular-400.ttf") format("truetype"),
+       url("../assets/fonts/fa-regular-400.svg#fontawesome") format("svg");
+ }
+
+ @font-face {
+   font-family: 'FontAwesome900';
+   font-style: normal;
+   font-weight: 900;
+   src: url("../assets/fonts/fa-solid-900.eot");
+   src: url("../assets/fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/fa-solid-900.woff2") format("woff2"),
+        url("../assets/fonts/fa-solid-900.woff") format("woff"),
+        url("../assets/fonts/fa-solid-900.ttf") format("truetype"),
+        url("../assets/fonts/fa-solid-900.svg#fontawesome") format("svg");
+  }
+
+  @font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    src: url("../assets/fonts/Quicksand-Regular.ttf");
+   }
+
+
 
 body
 {
@@ -115,12 +141,10 @@ body
 {
   background-color: #222;
 }
-
 .cbutton:hover .green
 {
     color: #00B500;
 }
-
 .cbutton:hover .red
 {
     color: #d12617;
@@ -129,6 +153,23 @@ body
 {
   color: #FFED00;
 }
+.cbutton:active
+{
+  background-color: #222;
+}
+.cbutton:active .yellow
+{
+  color: #FFED00;
+}
+.cbutton:active .red
+{
+    color: #d12617;
+}
+.cbutton:active .green
+{
+    color: #00B500;
+}
+
 
 .undo_section:hover .blue
 {
@@ -140,10 +181,19 @@ body
   font-size: 1em !important;
 }
 
-.family_awesome
+.family_awesome400
 {
-  font-family: "Font Awesome 5 Free";
+  font-family: "FontAwesome400";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.3em;
+}
+
+.family_awesome900
+{
+  font-family: "FontAwesome900";
   font-weight: 900;
+  font-style: normal;
   font-size: 1.3em;
 }
 
@@ -192,7 +242,7 @@ body
 .sel::before {
   position: absolute;
   content: '\f063';
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'FontAwesome900';
   font-weight: 900;
   font-size: 1em;
   color: #FFF;
@@ -267,7 +317,8 @@ body
 
 .sel__box__options::after {
   content: '\f00c';
-  font-family: 'Font Awesome 5 Free';
+  font-family: 'FontAwesome900';
+  font-weight: 900;
   font-size: 1em;
   margin-left: 10px;
   display: none;
