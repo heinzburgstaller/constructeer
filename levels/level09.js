@@ -1,10 +1,11 @@
-class Level09 extends BaseLevel {
+class Level08 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
     super(width, height, hitCallback, 40, ASSETS.IMAGES["b5.jpg"]);
   }
 
   setup() {
+    this.ground.push(new Ground(this.width / -3, this.height * 0.60, 1000, 1000, PI / 5));
     this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize));
     this.anchors.push(new Joint(this.width - (gridSize * 16), this.height - gridSize, 12, true));
     this.anchors.push(new Joint(this.width - (gridSize * 8), this.height - gridSize, 12, true));
@@ -21,7 +22,9 @@ class Level09 extends BaseLevel {
   }
 
   doCatastrophe() {
-    this.others.push(new Rocket());
+    for (var i = 0; i < 100; i++) {
+      this.others.push(new LandSlide(random(-150, -100), random(-350, -300), random(8, 16)));
+    }
   }
 
 }
