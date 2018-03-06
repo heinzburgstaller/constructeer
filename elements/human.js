@@ -256,11 +256,12 @@ class Human {
 
   show() {
     this.drawBodypart(this.head, this.head_options, '#fdc5ba');
-    this.drawBodypart(this.right_arm, this.right_arm_options, '#d7d73c');
-    this.drawBodypart(this.left_foot, this.left_foot_options, '#3c3cd7');
-    this.drawBodypart(this.right_foot, this.right_foot_options, '#3c3cd7');
-    this.drawBodypart(this.torso, this.torso_options, '#d73c3c');
-    this.drawBodypart(this.left_arm, this.left_arm_options, '#d7d73c');
+    this.drawBodypart(this.right_arm, this.right_arm_options, '#7CA660');
+    this.drawBodypart(this.left_foot, this.left_foot_options, '#9499A6');
+    this.drawBodypart(this.right_foot, this.right_foot_options, '#9499A6');
+    this.drawBodypart(this.left_arm, this.left_arm_options, '#7CA660');
+    this.drawBodypart(this.torso, this.torso_options, '#7CA660');
+
   }
 
   remove() {

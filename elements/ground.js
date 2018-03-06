@@ -1,6 +1,6 @@
 class Ground extends BaseElement {
 
-  constructor(x, y, w, h, a = 0.0, color = '#33691e') {
+  constructor(x, y, w, h, a = 0.0, color = '#33691e', alpha = 255) {
     var options = {
       angle: a,
       density: 1.0,
@@ -14,6 +14,7 @@ class Ground extends BaseElement {
     this.w = w;
     this.h = h;
     this.color = color;
+    this.alpha = alpha
   }
 
   draw() {
@@ -22,7 +23,9 @@ class Ground extends BaseElement {
     translate(pos.x, pos.y);
     rotate(angle);
     noStroke(255);
-    fill(this.color);
+    var c = color(this.color);
+    var ca = color('rgba(' + [red(c), green(c), blue(c), this.alpha].join(',') + ')');
+    fill(ca);
     rectMode(CENTER);
     rect(0, 0, this.w, this.h);
   }

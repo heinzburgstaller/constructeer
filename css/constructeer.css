@@ -1,4 +1,4 @@
-@-moz-document url-prefix() {
+/*@-moz-document url-prefix() {
     select.form-control {
         padding-right: 25px;
         background-image: url("data:image/svg+xml,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' width='14px' height='14px' viewBox='0 0 1200 1000' fill='rgb(51,51,51)'> <path d='M1100 411l-198 -199l-353 353l-353 -353l-197 199l551 551z'/> </svg>");
@@ -11,4 +11,361 @@
 
 .label-btn {
     pointer-events: none;
+}*/
+
+@font-face {
+  font-family: 'FontAwesome400';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/fa-regular-400.eot");
+  src: url("../assets/fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"),
+       url("../assets/fonts/fa-regular-400.woff2") format("woff2"),
+       url("../assets/fonts/fa-regular-400.woff") format("woff"),
+       url("../assets/fonts/fa-regular-400.ttf") format("truetype"),
+       url("../assets/fonts/fa-regular-400.svg#fontawesome") format("svg");
+ }
+
+ @font-face {
+   font-family: 'FontAwesome900';
+   font-style: normal;
+   font-weight: 900;
+   src: url("../assets/fonts/fa-solid-900.eot");
+   src: url("../assets/fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"),
+        url("../assets/fonts/fa-solid-900.woff2") format("woff2"),
+        url("../assets/fonts/fa-solid-900.woff") format("woff"),
+        url("../assets/fonts/fa-solid-900.ttf") format("truetype"),
+        url("../assets/fonts/fa-solid-900.svg#fontawesome") format("svg");
+  }
+
+  @font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    src: url("../assets/fonts/Quicksand-Regular.ttf");
+   }
+
+
+
+body
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: #ccc;
+  margin-top: 1em;
+  margin-bottom: 0em;
+}
+
+.container
+{
+  width: 1200px;
+  position: relative;
+}
+.gui_top
+{
+  display: flex;
+  background-color: #000;
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Quicksand";
+  height: 3em;
+}
+
+.gui_logo
+{
+  display: flex;
+}
+.gui_logo .logo
+{
+  display: flex;
+  align-items: flex-end;
+}
+.gui_logo .logo img
+{
+  height: 4em;
+  position:relative;
+  top: -8px;
+}
+
+.gui_logo .logo_text
+{
+  display: flex;
+  align-items: flex-end;
+}
+.gui_logo .logo_text h3
+{
+  font-weight: normal;
+}
+
+.undo_button
+{
+  font-family: "Font Awesome 5 Free";
+  background: transparent;
+  font-size: 1.2em;
+  border: 0px;
+  color: #fff;
+  height: 100%;
+  cursor: pointer;
+}
+
+
+.undo_section
+{
+  height: 100%;
+  padding-right: 1em;
+}
+.undo_section:hover
+{
+  background-color: #222;
+}
+
+.control_section
+{
+  height: 100%;
+}
+.control_section:hover
+{
+  background-color: #111;
+}
+
+.cbutton
+{
+  height: 100%;
+  background: transparent;
+  color: #fff;
+  border: 0px;
+  font-size: 1em;
+  padding-right: 1em;
+}
+.cbutton:hover
+{
+  background-color: #222;
+}
+.cbutton:hover .green
+{
+    color: #00B500;
+}
+.cbutton:hover .red
+{
+    color: #d12617;
+}
+.cbutton:hover .yellow
+{
+  color: #FFED00;
+}
+.cbutton:active
+{
+  background-color: #222;
+}
+.cbutton:active .yellow
+{
+  color: #FFED00;
+}
+.cbutton:active .red
+{
+    color: #d12617;
+}
+.cbutton:active .green
+{
+    color: #00B500;
+}
+
+
+.undo_section:hover .blue
+{
+    color: #66AAFF;
+}
+
+.s1em
+{
+  font-size: 1em !important;
+}
+
+.family_awesome400
+{
+  font-family: "FontAwesome400";
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.3em;
+}
+
+.family_awesome900
+{
+  font-family: "FontAwesome900";
+  font-weight: 900;
+  font-style: normal;
+  font-size: 1.3em;
+}
+
+
+
+/*
+.select_level_menu select
+{
+  color: #fff;
+  background-color: #000;
+  border: none;
+  font-size: 1.5em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select_level_menu
+{
+  display: flex;
+}
+
+#form_arrow_down
+{
+  font-size: 2em;
+}*/
+
+
+/* SELECT BOX from https://codepen.io/radiantshaw/pen/oLdLRW */
+
+.sel {
+  font-size: 1rem;
+  display: inline-block;
+  width: 150px;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.sel:hover
+{
+  background-color: #222;
+}
+
+.sel::before {
+  position: absolute;
+  content: '\f063';
+  font-family: 'FontAwesome900';
+  font-weight: 900;
+  font-size: 1em;
+  color: #FFF;
+  right: 10px;
+  top: calc(50% - 0.5em);
+}
+
+.sel.active::before {
+  transform: rotateX(-180deg);
+}
+
+.sel__placeholder {
+  display: block;
+  font-family: 'Quicksand';
+  font-size: 1em;
+  color: #fff;
+  padding: 0.2em 0.5em;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  visibility: visible;
+  position: relative;
+  top: 10px;
+}
+
+.sel.active .sel__placeholder {
+  visibility: hidden;
+}
+
+.sel__placeholder::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.2em 0.5em;
+  content: attr(data-placeholder);
+  visibility: hidden;
+}
+
+.sel.active .sel__placeholder::before {
+  visibility: visible;
+}
+
+.sel__box {
+  position: absolute;
+  top: calc(100%);
+  left: 0px;
+  display: none;
+  list-style-type: none;
+  text-align: left;
+  font-size: 1em;
+  color: #fff;
+  background-color: #222;
+  width: calc(100%);
+  box-sizing: border-box;
+}
+
+.sel.active .sel__box {
+  display: block;
+  animation: fadeInUp 500ms;
+}
+
+.sel__box__options {
+  display: list-item;
+  font-family: 'Quicksand';
+  font-size: 1em;
+  color: #fff;
+  padding: 0.5em 1em;
+  user-select: none;
+}
+
+.sel__box__options::after {
+  content: '\f00c';
+  font-family: 'FontAwesome900';
+  font-weight: 900;
+  font-size: 1em;
+  margin-left: 10px;
+  display: none;
+}
+
+.sel__box__options.selected::after {
+  display: inline;
+}
+
+.sel__box__options:hover {
+  background-color: #ebedef;
+  color: #000;
+}
+
+/* ----- Select Box Black Panther ----- */
+.sel {
+}
+
+.sel--black-panther {
+  z-index: 3;
+}
+
+/* ----- Select Box Superman ----- */
+.sel--superman {
+/*   display: none; */
+  z-index: 2;
+}
+
+/* ===== Keyframes ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
