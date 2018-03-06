@@ -1,4 +1,4 @@
-class Level10 extends BaseLevel {
+class Level11 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
     super(width, height, hitCallback, 40, ASSETS.IMAGES["b2.jpg"]);
