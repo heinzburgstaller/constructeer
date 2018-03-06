@@ -4,6 +4,7 @@ class Level11 extends BaseLevel {
     super(width, height, hitCallback, 40, ASSETS.IMAGES["b2.jpg"]);
   }
 
+
   setup() {
     this.ground.push(new Ground(this.width / 2, this.height - gridSize / 2, width, gridSize));
     this.anchors.push(new Joint(this.width - (gridSize * 18), this.height - gridSize, 12, true));
