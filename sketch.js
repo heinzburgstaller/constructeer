@@ -5,6 +5,8 @@ var Engine = Matter.Engine,
   // Render = Matter.Render, Not needed rendering is done by p5.js
   World = Matter.World,
   Bodies = Matter.Bodies,
+  Composites = Matter.Composites;
+  Svg = Matter.Svg;
   Constraint = Matter.Constraint,
   Events = Matter.Events;
 
@@ -35,7 +37,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel('Level00');
+  loadLevel('Level01');
 }
 
 function testConstruction() {
@@ -137,6 +139,15 @@ function loadLevel(levelString = null) {
     case 'Level08':
       this.level = new Level08(this.width, this.height, this.bodyHit);
       break;
+    case 'Level09':
+      level = new Level09(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level10':
+      level = new Level10(this.width, this.height, this.bodyHit);
+      break;
+    case 'Level11':
+      level = new Level11(this.width, this.height, this.bodyHit);
+      break;
     default:
       this.level = new Level01(this.width, this.height, this.bodyHit);
       break;
@@ -170,6 +181,8 @@ var mouseDraggedY = -1;
 
 function mouseDragged() {
   if (mousePressedX >= 0 && mousePressedY >= 0) {
+    console.log(mouseX)
+    console.log(mouseY)
     drawing = true;
     drawingLegal = false;
     mouseDraggedX = mouseX;
