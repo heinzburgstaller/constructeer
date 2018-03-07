@@ -48,9 +48,6 @@ function testConstruction() {
 }
 
 function successOrFailModal(){
-
-  console.log(level.bodyHitByPart);
-
   if(level.bodyHitByPart){
     var failure_modal = document.getElementById("failure");
     failure_modal.style.display = "block";
@@ -108,7 +105,6 @@ function construct() {
 function loadLevel(levelString = null) {
   var e = document.getElementById('selectLevel');
   var levelClassString = levelString === null ? e.options[e.selectedIndex].value : levelString;
-  //console.log(levelClassString);
   clearAll();
 
   switch (levelClassString) {
@@ -167,11 +163,8 @@ function checkMouseOnBody() {
 }
 
 function bodyHit() {
-  console.log("Body Hit");
   level.bodyHitByPart = true;
-  console.log(level.bodyHitByPart);
   if(this.succesTimer){
-    console.log("clear timeout");
     clearTimeout(this.succesTimer);
   }
 }
@@ -181,8 +174,6 @@ var mouseDraggedY = -1;
 
 function mouseDragged() {
   if (mousePressedX >= 0 && mousePressedY >= 0) {
-    console.log(mouseX)
-    console.log(mouseY)
     drawing = true;
     drawingLegal = false;
     mouseDraggedX = mouseX;
@@ -249,7 +240,6 @@ function getJointPerPoint(x, y) {
 }
 
 function getGridCoords(mouseX, mouseY) {
-  //console.log("gridIsOn:" + gridIsOn);
   if (gridIsOn)
     return {
       x: (Math.round(mouseX / gridSize) * gridSize),
@@ -368,7 +358,6 @@ function addToHistory(bodyAx, bodyAy, calc, orient, jointX, jointY) {
 }
 
 function keyPressed() {
-  //console.log(key + ' pressed');
 }
 
 function draw() {
