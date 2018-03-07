@@ -16,11 +16,12 @@
 
   <meta name="theme-color" content="#ffffff">
   <title>Constructeer</title>
-  <!--<link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
+  <link href="css/constructeer.css" rel="stylesheet">
+  <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
   <!--<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.min.css">-->
   <!--  <script src="node_modules/material-components-web/dist/material-components-web.js"></script>-->
-  <link href="css/constructeer.css" rel="stylesheet">
+
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/matter.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/matter-collision-events.js"></script>
@@ -62,7 +63,7 @@
         </div>
       </div>
         <div class="sel sel--black-panther">
-          <select name="select_level" id="selectLevel" class="" onchange="loadLevel()"">
+          <select name="select_level" id="selectLevel" class="" onchange="loadLevel()" >
             <option value="Nix" disabled>Select Level</option>
             <option value="Level00">Tutorial</option>
             <option value="Level01">Level 01</option>
@@ -97,7 +98,19 @@
       </div>
     </div>
   </div>
-
+  <div id="success" class="modalDialog">
+      <div>
+        Success
+      <button onclick="nextLevel()">Next Level</button>
+      <button onclick="repeatLevel()">Repeat Level</button>
+   </div>
+  </div>
+  <div id="failure" class="modalDialog">
+      <div>
+        Fail
+      <button onclick="repeatLevel()">Repeat Level</button>
+   </div>
+  </div>
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script language="javascript" type="text/javascript" src="js/select.js"></script>

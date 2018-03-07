@@ -4,6 +4,7 @@ class BaseElement {
     this.body = body;
     this.mouseOnBody = false;
     this.isRemoved = false;
+    this.nextLevel = null;
     World.add(world, this.body);
   }
 

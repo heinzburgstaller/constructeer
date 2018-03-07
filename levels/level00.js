@@ -4,6 +4,7 @@ class Level00 extends BaseLevel {
     super(width, height, hitCallback, 2, ASSETS.IMAGES["b1.jpg"]);
     this.joint1 = { x: gridSize * 9, y: gridSize * 9 };
     this.joint2 = { x: this.width - (gridSize * 9), y: gridSize * 9 };
+    this.nextLevel = "Level01";
   }
 
   setup() {

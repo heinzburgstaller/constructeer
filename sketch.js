@@ -11,6 +11,7 @@ var Engine = Matter.Engine,
 var engine;
 var world;
 var runEngine = false;
+var succesTimer = null;
 
 var level = null;
 var elements = [];
@@ -39,7 +40,45 @@ function setup() {
 
 function testConstruction() {
   runEngine = true;
+  level.bodyHitByPart = false;
   level.doCatastrophe();
+  this.succesTimer = setTimeout(successOrFailModal, level.timeToSuccess);
+}
+
+function successOrFailModal(){
+
+  console.log(level.bodyHitByPart);
+
+  if(level.bodyHitByPart){
+    var failure_modal = document.getElementById("failure");
+    failure_modal.style.display = "block";
+  }
+  else{
+    var success_modal = document.getElementById("success");
+    success_modal.style.display = "block";
+  }
+}
+
+function nextLevel(){
+  var success_modal = document.getElementById("success");
+  success_modal.style.display = "none";
+  var failure_modal = document.getElementById("failure");
+  failure_modal.style.display = "none";
+  if(level.nextLevel != null){
+    var select_box = document.getElementById("selectLevel");
+    select_box.value = level.nextLevel;
+    select_box.dispatchEvent(new Event('change'));
+  }
+  else{
+    //insert Finish screen
+  }
+}
+function repeatLevel(){
+  var success_modal = document.getElementById("success");
+  success_modal.style.display = "none";
+  var failure_modal = document.getElementById("failure");
+  failure_modal.style.display = "none";
+  construct();
 }
 
 function undo() {
@@ -53,6 +92,7 @@ function undo() {
 }
 
 function construct() {
+  clearTimeout(this.succesTimer);
   runEngine = false;
   elements.forEach(item => item.remove());
   elements = [];
@@ -71,39 +111,39 @@ function loadLevel(levelString = null) {
 
   switch (levelClassString) {
     case 'Level00':
-      level = new Level00(this.width, this.height, this.bodyHit);
+      this.level = new Level00(this.width, this.height, this.bodyHit);
       break;
     case 'Level01':
-      level = new Level01(this.width, this.height, this.bodyHit);
+      this.level = new Level01(this.width, this.height, this.bodyHit);
       break;
     case 'Level02':
-      level = new Level02(this.width, this.height, this.bodyHit);
+      this.level = new Level02(this.width, this.height, this.bodyHit);
       break;
     case 'Level03':
-      level = new Level03(this.width, this.height, this.bodyHit);
+      this.level = new Level03(this.width, this.height, this.bodyHit);
       break;
     case 'Level04':
-      level = new Level04(this.width, this.height, this.bodyHit);
+      this.level = new Level04(this.width, this.height, this.bodyHit);
       break;
     case 'Level05':
-      level = new Level05(this.width, this.height, this.bodyHit);
+      this.level = new Level05(this.width, this.height, this.bodyHit);
       break;
     case 'Level06':
-      level = new Level06(this.width, this.height, this.bodyHit);
+      this.level = new Level06(this.width, this.height, this.bodyHit);
       break;
     case 'Level07':
-      level = new Level07(this.width, this.height, this.bodyHit);
+      this.level = new Level07(this.width, this.height, this.bodyHit);
       break;
     case 'Level08':
-      level = new Level08(this.width, this.height, this.bodyHit);
+      this.level = new Level08(this.width, this.height, this.bodyHit);
       break;
     default:
-      level = new Level01(this.width, this.height, this.bodyHit);
+      this.level = new Level01(this.width, this.height, this.bodyHit);
       break;
   }
 
-  level.setup();
-  level.setupHumans();
+  this.level.setup();
+  this.level.setupHumans();
 }
 
 function checkMouseOnBody() {
@@ -117,6 +157,12 @@ function checkMouseOnBody() {
 
 function bodyHit() {
   console.log("Body Hit");
+  level.bodyHitByPart = true;
+  console.log(level.bodyHitByPart);
+  if(this.succesTimer){
+    console.log("clear timeout");
+    clearTimeout(this.succesTimer);
+  }
 }
 
 var mouseDraggedX = -1;

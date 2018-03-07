@@ -1,6 +1,6 @@
 class BaseLevel {
 
-  constructor(width, height, humanHitCallback = null, maxBeams = 50, bgImage = null) {
+  constructor(width, height, humanHitCallback = null, maxBeams = 50, bgImage = null, timeToSuccess = 6000) {
     this.width = width;
     this.height = height;
     this.ground = [];
@@ -10,8 +10,10 @@ class BaseLevel {
     this.humanHitCallback = humanHitCallback;
     this.maxBeams = maxBeams;
     this.bg = bgImage != null ? loadImage(bgImage) : null;
+    this.timeToSuccess = timeToSuccess;
     this.frameCountInConstructor = frameCount;
     document.getElementById('beamsToGo').innerHTML = this.maxBeams;
+    this.bodyHitByPart = false;
   }
 
   setup() {

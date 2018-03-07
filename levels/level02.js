@@ -2,6 +2,7 @@ class Level02 extends BaseLevel {
 
   constructor(width, height, hitCallback) {
     super(width, height, hitCallback, 30, ASSETS.IMAGES["b1.jpg"]);
+    this.nextLevel = "Level03";
   }
 
   setup() {

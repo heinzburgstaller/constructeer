@@ -4,7 +4,7 @@ class Level08 extends BaseLevel {
     super(width, height, hitCallback, 25, ASSETS.IMAGES["b3.png"]);
     this.counter = -1;
     this.counter2 = -0.5;
-
+    this.nextLevel = null;
   }
 
 
