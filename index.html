@@ -109,15 +109,19 @@
   </div>
   <div id="success" class="modalDialog">
       <div>
-        Success
-      <button onclick="nextLevel()">Next Level</button>
-      <button onclick="repeatLevel()">Repeat Level</button>
+      <span class="modal_text mtgreen">Success!</span>
+      <button class="mbutton" onclick="nextLevel()">Next Level</button>
+      <button class="mbutton" onclick="construct()">Return to Level</button>
+      <button class="mbutton" onclick="repeatLevel()">Repeat Level</button>
+
    </div>
   </div>
   <div id="failure" class="modalDialog">
       <div>
-        Fail
-      <button onclick="repeatLevel()">Repeat Level</button>
+        <span class="modal_text mtred">Fail!</span>
+      <button class="mbutton" onclick="repeatLevel()">Repeat Level</button>
+      <button class="mbutton" onclick="construct()">Return to Level</button>
+
    </div>
   </div>
   <script src="js/jquery.min.js"></script>

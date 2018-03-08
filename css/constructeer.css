@@ -140,6 +140,7 @@ body
 .cbutton:hover
 {
   background-color: #222;
+  cursor: pointer;
 }
 .cbutton:hover .green
 {
@@ -376,7 +377,7 @@ body
   display: none;
 	position: fixed;
 	font-family: Arial, Helvetica, sans-serif;
-	top: 0;
+	top: 10em;;
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -386,6 +387,10 @@ body
 	-moz-transition: opacity 400ms ease-in;
 	transition: opacity 400ms ease-in;
 	pointer-events: auto;
+  /*display: flex;*/
+  flex-direction: column;
+  /*justify-content: center;*/
+  align-items: center;
 }
 .modalDialog:target {
 	opacity:1;
@@ -393,13 +398,71 @@ body
 }
 
 .modalDialog > div {
-	width: 400px;
+	/*width: 400px;*/
 	position: relative;
-	margin: 10% auto;
-	padding: 5px 20px 13px 20px;
-	border-radius: 10px;
-	background: rgba(118,0,229,0.8);
+	/*margin: 10% auto;*/
+	/*padding: 5px 20px 13px 20px;*/
+	border-radius: 0.5em;
+	background: rgba(0,0,0,0.8);
+  font-family: "Quicksand";
+  color: #fff;
 
+}
+
+.modal_text
+{
+  padding-top: 0.4em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 0.2em;
+  font-size: 1.8em;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.mtgreen
+{
+  color: #89ec89;
+
+}
+
+.mtred
+{
+  color: #d12617;
+
+}
+.mbutton
+{
+  height: 2em;
+  background: transparent;
+  color: #fff;
+  border: 0px;
+  font-size: 1em;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.mbutton:last-child
+{
+  margin-bottom: 0.5em;
+}
+.mbutton:hover
+{
+  background-color: #222;
+  cursor: pointer;
+}
+
+.mbutton:first-child:hover
+{
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+.mbutton:last-child:hover
+{
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
 }
 
 

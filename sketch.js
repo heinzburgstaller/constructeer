@@ -37,7 +37,7 @@ function setup() {
   //engine.constraintIterations = 5;
   world = engine.world;
 
-  loadLevel('Level01');
+  loadLevel('Level00');
 }
 
 function testConstruction() {
@@ -50,11 +50,11 @@ function testConstruction() {
 function successOrFailModal(){
   if(level.bodyHitByPart){
     var failure_modal = document.getElementById("failure");
-    failure_modal.style.display = "block";
+    failure_modal.style.display = "flex";
   }
   else{
     var success_modal = document.getElementById("success");
-    success_modal.style.display = "block";
+    success_modal.style.display = "flex";
   }
 }
 
@@ -65,8 +65,22 @@ function nextLevel(){
   failure_modal.style.display = "none";
   if(level.nextLevel != null){
     var select_box = document.getElementById("selectLevel");
-    select_box.value = level.nextLevel;
-    select_box.dispatchEvent(new Event('change'));
+    var select_options = document.getElementsByTagName("option");
+    console.log(select_options);
+    for(option of select_options)
+    {
+      console.log(option.value + ":" + level.nextLevel);
+      if(option.value == level.nextLevel)
+      {
+        //option.dispatchEvent(new Event('click'));
+        toggle_level(option, 0);
+        console.log("found level");
+        break;
+      }
+    }
+
+    /*select_box.value = level.nextLevel;
+    select_box.dispatchEvent(new Event('change'));*/
   }
   else{
     //insert Finish screen
@@ -77,7 +91,7 @@ function repeatLevel(){
   success_modal.style.display = "none";
   var failure_modal = document.getElementById("failure");
   failure_modal.style.display = "none";
-  construct();
+  loadLevel();
 }
 
 function undo() {
@@ -91,6 +105,10 @@ function undo() {
 }
 
 function construct() {
+  var success_modal = document.getElementById("success");
+  success_modal.style.display = "none";
+  var failure_modal = document.getElementById("failure");
+  failure_modal.style.display = "none";
   clearTimeout(this.succesTimer);
   runEngine = false;
   elements.forEach(item => item.remove());

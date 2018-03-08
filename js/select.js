@@ -34,6 +34,7 @@ $('.sel').click(function() {
 
 // Toggling the `.selected` state on the options.
 $('.sel__box__options').click(function() {
+  console.log("clicked selboxoptions")
   var txt = $(this).text();
   var index = $(this).index();
 
@@ -42,7 +43,22 @@ $('.sel__box__options').click(function() {
   var $currentSel = $(this).closest('.sel');
   $currentSel.children('.sel__placeholder').text(txt);
   $currentSel.children('select').prop('selectedIndex', index + 1);
-  //console.log(txt);
-  //console.log(index);
+  console.log(txt);
+  console.log(index);
+  loadLevel();});
+
+function toggle_level(this_, forward_value)
+{
+  console.log("clicked selboxoptions")
+  var txt = $(this_).text();
+  var index = $(this_).index();
+
+  $(this_).siblings('.sel__box__options').removeClass('selected');
+  $(this_).addClass('selected');
+  var $currentSel = $(this_).closest('.sel');
+  $currentSel.children('.sel__placeholder').text(txt);
+  $currentSel.children('select').prop('selectedIndex', index + forward_value);
+  console.log(txt);
+  console.log(index);
   loadLevel();
-});
+};
