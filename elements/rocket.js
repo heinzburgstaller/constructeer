@@ -26,16 +26,16 @@ class Rocket {
   }
 
   drawRocket(){
-      push()
-      translate(this.cup, 20, 20)
-      scale(2.0)
+      push();
+      translate(this.cup, 20, 20);
+      scale(2.0);
       rotate(PI / 3.60);
       if (this.x < CANVAS_WIDTH - this.rocket.width) {
           this.x += 7;
           this.y += -2;
           image(this.rocket, this.x, this.y);
       }
-      pop()
+      pop();
   }
 
 }

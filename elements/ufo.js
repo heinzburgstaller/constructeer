@@ -26,9 +26,11 @@ class UFO {
   }
 
   show() {
+    push();
     this.drawUFO();
     this.shoot();
     this.drawBullets();
+    pop();
   }
 
   drawUFO() {
