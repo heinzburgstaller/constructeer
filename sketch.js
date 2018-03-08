@@ -91,7 +91,8 @@ function repeatLevel(){
   success_modal.style.display = "none";
   var failure_modal = document.getElementById("failure");
   failure_modal.style.display = "none";
-  loadLevel();
+  //loadLevel();
+  construct();
 }
 
 function undo() {
@@ -415,8 +416,9 @@ function draw() {
     if (numberOfBeams >= level.maxBeams) {
       drawing = false;
       drawingLegal = false;
-      alert("You have reached the maximum allowed number of beams for this level!"
-        + " Please test your construction or undo and try again.");
+      showMaxBeamsModal();
+      /*alert("You have reached the maximum allowed number of beams for this level!"
+        + " Please test your construction or undo and try again.");*/
       return;
     }
 
@@ -427,6 +429,17 @@ function draw() {
     line(mousePressedX, mousePressedY, grid_mouseDragged.x, grid_mouseDragged.y);
     pop();
   }
+}
+
+function showMaxBeamsModal()
+{
+  var maxbeams_modal = document.getElementById("max_beams");
+  maxbeams_modal.style.display = "flex";
+}
+function closeModal(modal)
+{
+  var modal = document.getElementById(modal);
+  modal.style.display = "none";
 }
 
 function clearAll() {

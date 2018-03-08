@@ -112,16 +112,23 @@
       <span class="modal_text mtgreen">Success!</span>
       <button class="mbutton" onclick="nextLevel()">Next Level</button>
       <button class="mbutton" onclick="repeatLevel()">Return to Level</button>
-      <button class="mbutton" onclick="construct()">Construct</button>
+      <!--<button class="mbutton" onclick="construct()">Construct</button>-->
 
    </div>
   </div>
   <div id="failure" class="modalDialog">
       <div>
         <span class="modal_text mtred">Fail!</span>
-      <button class="mbutton" onclick="repeatLevel()">Repeat Level</button>
-      <button class="mbutton" onclick="construct()">Construct</button>
+      <button class="mbutton" onclick="repeatLevel()">Return to Level</button>
+      <!--<button class="mbutton" onclick="construct()">Construct</button>-->
+   </div>
+  </div>
 
+  <div id="max_beams" class="modalDialog">
+      <div>
+        <span class="modal_text mtred fs1_5em">You have reached the maximum<br>of allowed number of beams<br> for this level!</span>
+      <button class="mbutton" onclick="closeModal('max_beams')">Return to Level</button>
+      <!--<button class="mbutton" onclick="construct()">Construct</button>-->
    </div>
   </div>
   <script src="js/jquery.min.js"></script>

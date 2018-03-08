@@ -465,6 +465,10 @@ body
   border-bottom-right-radius: 0.5em;
 }
 
+.fs1em
+{
+  font-size: 1.5em; !important
+}
 
 .close {
 	background: #606061;
