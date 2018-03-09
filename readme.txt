@@ -1,0 +1,7 @@
+(1) Our game is based on the interactive construction of objects: the user has to construct a building with building blocks made out of different materials. This building has then to withstand a test with simulated natural forces acting on the building. Each level is set in a different geographical region with different challenges (typically occurring in this region) that have to be passed as tests in order to pass to the next level; for example withstanding heavy snowfall in Russia, fire and heat in Spain, earthquakes in Mexico, or bombs in Syria. The game is supposed to convey the fundamentals of statics in a playful way and also addresses non-engineering students, who can playfully adapt the engineering mindset through the task of constructing a building and finding out what makes it stable and well-built with the “learning by doing” approach.
+
+(2) Group members: Heinz Burgstaller 1231266, Mathias Blum 0921629, Patrick Frohmann 1231119, Stefan Buerscher 1230486, Markus Thomas Lienbacher 1031552, Isabel Lesjak 1331328
+(3) HTML, CSS, matter.js, p5.js, Bootstrap
+(4) Credits for background: 
+http://www.berga-tech.com/2018/02/free-template-game-android-2d.html 
+(5) Link to build for feature on website: TODO upload code and link to Google Drive folder
