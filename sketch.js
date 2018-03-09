@@ -9,6 +9,7 @@ var Engine = Matter.Engine,
   Svg = Matter.Svg;
   Constraint = Matter.Constraint,
   Events = Matter.Events;
+  Runner = Matter.Runner;
 
 var engine;
 var world;
@@ -33,6 +34,12 @@ function setup() {
   frameRate(FPS);
   gridIsOn = false;
 
+  if(engine){
+    World.clear(engine.world);
+    Engine.clear(engine);
+  }
+
+
   engine = Engine.create();
   //engine.constraintIterations = 5;
   world = engine.world;
@@ -51,10 +58,12 @@ function successOrFailModal(){
   if(level.bodyHitByPart){
     var failure_modal = document.getElementById("failure");
     failure_modal.style.display = "flex";
+    runEngine = false;
   }
   else{
     var success_modal = document.getElementById("success");
     success_modal.style.display = "flex";
+    runEngine = false;
   }
 }
 
@@ -83,6 +92,10 @@ function nextLevel(){
     select_box.dispatchEvent(new Event('change'));*/
   }
   else{
+
+    //loadLevel("Finish")
+
+
     //insert Finish screen
   }
 }
@@ -159,9 +172,6 @@ function loadLevel(levelString = null) {
       break;
     case 'Level10':
       level = new Level10(this.width, this.height, this.bodyHit);
-      break;
-    case 'Level11':
-      level = new Level11(this.width, this.height, this.bodyHit);
       break;
     default:
       this.level = new Level01(this.width, this.height, this.bodyHit);
