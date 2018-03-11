@@ -84,7 +84,6 @@ class BaseLevel {
   }
 
   doCatastrophe() {
-
   }
 
   clear() {
